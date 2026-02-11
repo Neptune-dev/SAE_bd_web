@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="style/base.css">
 </head>
 <body>
+    <header>
+        <?php
+            if (isset($_SESSION["user"]))
+            {
+                echo ('<a href="mypage.php">Ma page</a><a href="logout.php">Se déconnecter</a>');
+            } else
+            {
+                echo ('<a href="login.php">Se connecter</a>');
+            }
+        ?>
+    </header>
+
     <?= $content ?>
+    
+    <footer></footer>
 </body>
 </html>

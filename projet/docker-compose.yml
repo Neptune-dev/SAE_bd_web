@@ -1,19 +1,22 @@
 services:
   web:
-    build: .
+#    build: .
+    image: php:apache #temporaire, le temps de faire marcher oracle
     container_name: apache_web
     ports:
       - "8080:80"
-    depends_on:
-      - oracle
-
-  oracle:
-    image: oracle/database:19.3.0-se2
-    container_name: oracle_db
-    environment:
-      - ORACLE_PWD=oracle
-      - ORACLE_CHARACTERSET=AL32UTF8
-    ports:
-      - "1521:1521"
-    volumes:
-      - ./oracle_data:/opt/oracle/oradata
+    volumes: #temporaire, le temps de faire marcher oracle
+      - ./public_html:/var/www/html #temporaire, le temps de faire marcher oracle
+#    depends_on:
+#      - oracle
+#
+#  oracle:
+#    image: oracle/database:19.3.0-se2
+#    container_name: oracle_db
+#    environment:
+#      - ORACLE_PWD=oracle
+#      - ORACLE_CHARACTERSET=AL32UTF8
+#    ports:
+#      - "1521:1521"
+#    volumes:
+#      - ./oracle_data:/opt/oracle/oradata

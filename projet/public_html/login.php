@@ -10,7 +10,7 @@
     //si l'utilisateur est déjà connecté, on peut rediriger directement
     if (isset($_SESSION["user"]))
     {
-        header("Location: index.php");
+        header("Location: mypage.php");
         exit();
     }
 
@@ -44,7 +44,19 @@
             trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
         }
 
+        // fetch
+        $user = oci_fetch(_array($stid, OCI_ASSOC+OCI_RETURN_NULLS));
+
         // vérif pwd
+        if ($user && password_verify($pwd, $user['pwd']))
+        {
+            $_SESSION["user"] = $user;
+            header("Location: mypage.php");
+            exit();
+        } else
+        {
+            echo "erreur";
+        }
     }
 ?>
 

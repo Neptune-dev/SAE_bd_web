@@ -21,6 +21,8 @@
 
     <?= $content ?>
     
-    <footer></footer>
+    <footer>
+        <a href="phpinfo.php">php Info</a>
+    </footer>
 </body>
 </html>

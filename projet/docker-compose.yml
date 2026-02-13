@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     ports:
       - "8080:80"
-#    volumes: #temporaire, le temps de faire marcher oracle
-#      - ./public_html:/var/www/html #temporaire, le temps de faire marcher oracle
+    volumes: #temporaire, le temps de faire marcher oracle
+      - ./public_html:/var/www/html #temporaire, le temps de faire marcher oracle
     depends_on:
       - oracle
 
@@ -23,11 +23,3 @@ services:
       - "5500:5500"
     volumes:
       - ./oracle_data:/opt/oracle/oradata
-
-  adminer:
-    image: adminer
-    container_name: adminer_db
-    ports:
-      - "8081:8080"
-    depends_on:
-      - oracle

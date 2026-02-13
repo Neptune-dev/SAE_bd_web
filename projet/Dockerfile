@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.2.30-apache
 
 RUN apt-get update && \
     apt-get install -y libaio1 unzip && \

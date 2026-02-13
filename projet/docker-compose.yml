@@ -11,7 +11,6 @@ services:
 #    depends_on:
 #      - oracle
 #
-services:
   oracle:
     image: gvenzl/oracle-free:latest
     container_name: myapp-oracle
@@ -27,6 +26,7 @@ services:
       timeout: 5s
       retries: 20
       start_period: 20s
-    #volumes:
+    volumes:
       # Script d'init (optionnel) pour créer tes tables au 1er démarrage
-      # - ./db/init.sql:/container-entrypoint-initdb.d/init.sql:ro
+      - ./bd.sql:/container-entrypoint-initdb.d/init.sql:ro
+      - ./oracle_data:/opt/oracle/oradata

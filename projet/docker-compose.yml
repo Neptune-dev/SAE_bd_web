@@ -8,9 +8,9 @@ services:
     volumes:
       - ./public_html:/var/www/html/public
     depends_on:
-      - oracle
+      - oracle_db
 
-  oracle:
+  oracle_db:
     image: gvenzl/oracle-free:latest
     container_name: oracle_db
     restart: unless-stopped
@@ -18,8 +18,9 @@ services:
       - "1521:1521"
     environment:
       ORACLE_PASSWORD: "SysPassw0rd!"
-      APP_USER: "myapp_user"
-      APP_USER_PASSWORD: "myapp_pwd"
+      APP_USER: "oracle_user"
+      APP_USER_PASSWORD: "oracle_pwd"
+      ORACLE_ALLOW_REMOTE: true
     healthcheck:
       test: ["CMD", "healthcheck.sh"]
       interval: 10s
@@ -29,3 +30,16 @@ services:
     volumes:
       - ./bd.sql:/container-entrypoint-initdb.d/init.sql:ro
       - ./oracle_data:/opt/oracle/oradata
+
+  adminer:
+    build: .
+    restart: unless-stopped
+    container_name: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: oracle_db
+      ADMINER_USER: oracle_user
+      ADMINER_PASSWORD: oracle_pwd
+    ports:
+      - 8081:8080
+    depends_on:
+      - oracle_db

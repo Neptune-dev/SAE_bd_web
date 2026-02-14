@@ -1,5 +1,5 @@
 <?php
-define("MYHOST","oracle_db/oracle");
-define("MYUSER","SYS");
-define("MYPASS","oracle");
+define("MYHOST","http://localhost:1521");
+define("MYUSER","myapp_user");
+define("MYPASS","myapp_pwd");
 ?> 

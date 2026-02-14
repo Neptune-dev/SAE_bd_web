@@ -1,25 +1,25 @@
 services:
   web:
-#    build: .
-    image: php:apache #temporaire, le temps de faire marcher oracle
+    image: paliari/apache-php8-oci8:1.2.0-dev
     container_name: apache_web
     restart: unless-stopped
     ports:
       - "8080:80"
-    volumes: #temporaire, le temps de faire marcher oracle
-      - ./public_html:/var/www/html #temporaire, le temps de faire marcher oracle
-#    depends_on:
-#      - oracle
-#
+    volumes:
+      - ./public_html:/var/www/html/public
+    depends_on:
+      - oracle
+
   oracle:
     image: gvenzl/oracle-free:latest
-    container_name: myapp-oracle
+    container_name: oracle_db
+    restart: unless-stopped
     ports:
       - "1521:1521"
     environment:
       ORACLE_PASSWORD: "SysPassw0rd!"
-      APP_USER: "myapp"
-      APP_USER_PASSWORD: "MyAppPassw0rd!"
+      APP_USER: "myapp_user"
+      APP_USER_PASSWORD: "myapp_pwd"
     healthcheck:
       test: ["CMD", "healthcheck.sh"]
       interval: 10s
@@ -27,6 +27,5 @@ services:
       retries: 20
       start_period: 20s
     volumes:
-      # Script d'init (optionnel) pour créer tes tables au 1er démarrage
       - ./bd.sql:/container-entrypoint-initdb.d/init.sql:ro
       - ./oracle_data:/opt/oracle/oradata

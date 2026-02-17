@@ -1,10 +1,10 @@
-CREATE TABLE Test (
-    Id int,
-    Nom varchar(50),
-    Prenom varchar(50),
-    PRIMARY KEY (Id)
+CREATE TABLE TEST (
+    ID int,
+    NOM varchar(50),
+    PRENOM varchar(50),
+    PRIMARY KEY (ID)
 );
 
-INSERT INTO Test (Id, Nom, Prenom) VALUES
-(1,"Pichet", "Pierre"),
-(2, "Cale", "Thomas");
+INSERT INTO TEST (ID, NOM, PRENOM) VALUES
+(1,'Pichet', 'Pierre'),
+(2, 'Cale', 'Thomas');

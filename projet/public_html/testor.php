@@ -24,7 +24,7 @@
             require_once('myparam.inc.php');
 
             //connexion à la db
-            $conn = oci_connect(constant("MYUSER"), constant("MYPASS"), constant("MYHOST"));
+            $conn = oci_connect(MYUSER, MYPASS, MYHOST);
             if (!$conn) {
                 $e = oci_error();
                 trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
@@ -45,10 +45,13 @@
             }
 
             // fetch et affichage
-            while ($line = oci_fetch(_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)))
+            while (oci_fetch($stid))
             {
-                echo ("<tr><td>".$line['Id']."</td><td>".$line['Nom']."</td><td>".$line['Prenom']."</td></tr>");
+                echo ("<tr><td>".oci_result($stid, 'ID')."</td><td>".oci_result($stid, 'NOM')."</td><td>".oci_result($stid, 'PRENOM')."</td></tr>");
             }
+
+            oci_free_statement($stid);
+            oci_close($conn);
         ?>
 
     </table>

@@ -46,6 +46,33 @@ CREATE TABLE NOURRITURE (
     FOREIGN KEY (rfid_nourri) REFERENCES ANIMAL(RFID)
 );
 
+CREATE TABLE ENCLOS (
+    id_enclos int,
+    latitude int,
+    longitude int,
+    surface int,
+    PRIMARY KEY (id_enclos)
+);
+
+CREATE TABLE PERSONNEL (
+    id_personnel int,
+    type_personnel varchar2(30),
+    nom varchar2(30) NOT NULL,
+    prenom varchar2(30),
+    pwd varchar2(50) NOT NULL,
+    date_entree DATE NOT NULL,
+    date_fin DATE,
+    salaire int NOT NULL,
+    PRIMARY KEY (id_personnel)
+);
+
+CREATE TABLE EQUIPE (
+    id_equipe int,
+    chef int,
+    PRIMARY KEY (id_equipe),
+    FOREIGN KEY (chef) REFERENCES PERSONNEL(ID_PERSONNEL)
+);
+
 --- Création des associations
 
 CREATE TABLE FILIATION (
@@ -55,4 +82,11 @@ CREATE TABLE FILIATION (
     PRIMARY KEY (rfid_parent1, rfid_parent2),
     FOREIGN KEY (rfid_parent1) REFERENCES ANIMAL(RFID),
     FOREIGN KEY (rfid_parent2) REFERENCES ANIMAL(RFID)
+);
+
+CREATE TABLE RATTACHEMENT (
+    id_rattachement int,
+    personnel_rattachement int NOT NULL,
+    equipe_rattachement int NOT NULL,
+    PRIMARY KEY (id_rattachement)
 );

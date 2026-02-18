@@ -14,7 +14,7 @@ INSERT INTO TEST (ID, NOM, PRENOM) VALUES
 --- Création des entités
 
 CREATE TABLE ESPECE (
-    id_espece int
+    id_espece int,
     nom_latin varchar2(50) NOT NULL,
     nom_usuel varchar2(30) NOT NULL,
     menacee int,

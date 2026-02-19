@@ -189,3 +189,4 @@ CREATE TABLE gagner(
 	FOREIGN KEY (id_boutique) REFERENCES boutique(id_boutique),
 	FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel)
 	);
+EXIT;

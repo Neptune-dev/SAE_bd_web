@@ -177,7 +177,7 @@ INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salair
 INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0029','TECHNICIEN','Guillot','Victor',TO_DATE('2020-06-06','YYYY-MM-DD'),2000.00,'EQUI0009',NULL);
 INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0030','SOIGNEUR','Fontaine','Sarah',TO_DATE('2017-01-17','YYYY-MM-DD'),2350.00,'EQUI0010',NULL);
 
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0031','DIRECTEUR','dir_name','dir_name1',TO_DATE('2004-02-07','YYYY-MM-DD'),46789.00,'root');
+INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0031','DIRECTEUR','dir_name','dir_name1',TO_DATE('2004-02-07','YYYY-MM-DD'),46789.00,NULL,'root');
 
 UPDATE equipe SET id_chef_equipe = 'PERS0001' WHERE id_equipe = 'EQUI0001';
 UPDATE equipe SET id_chef_equipe = 'PERS0002' WHERE id_equipe = 'EQUI0002';

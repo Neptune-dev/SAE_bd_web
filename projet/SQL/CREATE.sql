@@ -96,6 +96,8 @@ CREATE TABLE personnel(
 	date_entree DATE, 
 	salaire NUMBER(7,2), 
 	id_equipe CHAR(8),
+	mot_de_passe VARCHAR(255),
+	actif NUMBER(1) DEFAULT 0,
 	FOREIGN KEY (id_equipe) REFERENCES equipe(id_equipe)
 	);
 

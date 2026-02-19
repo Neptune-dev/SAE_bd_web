@@ -291,16 +291,16 @@ INSERT INTO parrainer VALUES ('PAR00008','VIS00008','RFID0008','ARGENT');
 INSERT INTO parrainer VALUES ('PAR00009','VIS00009','RFID0009','OR');
 INSERT INTO parrainer VALUES ('PAR00010','VIS00010','RFID0010','BRONZE');
 
-INSERT INTO prestation VALUES ('PRESTA001','BRONZE','Certificat de parrainage');
-INSERT INTO prestation VALUES ('PRESTA002','BRONZE','Newsletter mensuelle');
-INSERT INTO prestation VALUES ('PRESTA003','ARGENT','Photo exclusive de l animal');
-INSERT INTO prestation VALUES ('PRESTA004','ARGENT','Invitation événement spécial');
-INSERT INTO prestation VALUES ('PRESTA005','OR','Visite guidée privée');
-INSERT INTO prestation VALUES('PRESTA006','OR','Accès coulisses du zoo');
-INSERT INTO prestation VALUES ('PRESTA007','BRONZE','Badge supporter');
-INSERT INTO prestation VALUES ('PRESTA008','ARGENT','Rencontre avec un soigneur');
-INSERT INTO prestation VALUES ('PRESTA009','OR','Repas VIP au restaurant du zoo');
-INSERT INTO prestation VALUES ('PRESTA010','BRONZE','Mention sur le site web');
+INSERT INTO prestation VALUES ('PRESTA01','BRONZE','Certificat de parrainage');
+INSERT INTO prestation VALUES ('PRESTA02','BRONZE','Newsletter mensuelle');
+INSERT INTO prestation VALUES ('PRESTA03','ARGENT','Photo exclusive de l animal');
+INSERT INTO prestation VALUES ('PRESTA04','ARGENT','Invitation événement spécial');
+INSERT INTO prestation VALUES ('PRESTA05','OR','Visite guidée privée');
+INSERT INTO prestation VALUES('PRESTA06','OR','Accès coulisses du zoo');
+INSERT INTO prestation VALUES ('PRESTA07','BRONZE','Badge supporter');
+INSERT INTO prestation VALUES ('PRESTA08','ARGENT','Rencontre avec un soigneur');
+INSERT INTO prestation VALUES ('PRESTA09','OR','Repas VIP au restaurant du zoo');
+INSERT INTO prestation VALUES ('PRESTA10','BRONZE','Mention sur le site web');
 
 INSERT INTO gagner VALUES ('BOUT0001', TO_DATE('2026-01-01','YYYY-MM-DD'), 1250.50, 'PERS0001');
 INSERT INTO gagner VALUES ('BOUT0002', TO_DATE('2026-01-02','YYYY-MM-DD'), 980.00,  'PERS0002');

@@ -36,7 +36,7 @@
             }
 
             // Préparation de la requête
-            $stid = oci_parse($conn, 'SELECT * FROM Personel WHERE Id = :userID');
+            $stid = oci_parse($conn, 'SELECT * FROM PERSONNEL WHERE id_personnel = :userID');
             if (!$stid) {
                 $e = oci_error($conn);
                 trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
@@ -61,7 +61,7 @@
                 exit();
             } else
             {
-                echo "erreur";
+                echo "erreur credentials";
             }
         }
     ?>

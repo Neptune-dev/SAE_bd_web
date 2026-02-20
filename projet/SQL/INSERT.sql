@@ -9,27 +9,38 @@ INSERT INTO individu (RFID) VALUES ('RFID0008');
 INSERT INTO individu (RFID) VALUES ('RFID0009');
 INSERT INTO individu (RFID) VALUES ('RFID0010');
 
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00001', 'Panthera leo', 'Lion');
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00002', 'Panthera tigris', 'Tigre');
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00003', 'Elephas maximus', 'Éléphant asiatique');
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00004', 'Giraffa camelopardalis', 'Girafe');
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00005', 'Ursus arctos', 'Ours brun');
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00006', 'Canis lupus', 'Loup gris');
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00007', 'Equus quagga', 'Zèbre');
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00008', 'Gorilla gorilla', 'Gorille');
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00009', 'Hippopotamus amphibius', 'Hippopotame');
-INSERT INTO espece (id_espece, nom_latin, nom_usuel) VALUES ('ESP00010', 'Crocodylus niloticus', 'Crocodile du Nil');
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00001', 'Panthera leo', 'Lion', 0);
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00002', 'Panthera tigris', 'Tigre', 0);
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00003', 'Elephas maximus', 'Éléphant asiatique', 1);
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00004', 'Giraffa camelopardalis', 'Girafe', 0);
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00005', 'Ursus arctos', 'Ours brun', 1);
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00006', 'Canis lupus', 'Loup gris', 0);
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00007', 'Equus quagga', 'Zèbre', 0);
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00008', 'Gorilla gorilla', 'Gorille', 0);
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00009', 'Hippopotamus amphibius', 'Hippopotame', 0);
+INSERT INTO espece (id_espece, nom_latin, nom_usuel, menacee) VALUES ('ESP00010', 'Crocodylus niloticus', 'Crocodile du Nil', 0);
 
-INSERT INTO animal VALUES ('RFID0001', 'Leo', 'Simba', TO_DATE('2018-05-12','YYYY-MM-DD'), 190, 'ESP00001');
-INSERT INTO animal VALUES ('RFID0002', 'Rajah', 'Khan', TO_DATE('2017-03-21','YYYY-MM-DD'), 220, 'ESP00002');
-INSERT INTO animal VALUES ('RFID0003', 'Babar', 'Raja', TO_DATE('2015-09-02','YYYY-MM-DD'), 300, 'ESP00003');
-INSERT INTO animal VALUES ('RFID0004', 'Longneck', 'Gigi', TO_DATE('2019-11-18','YYYY-MM-DD'), 800, 'ESP00004');
-INSERT INTO animal VALUES ('RFID0005', 'Baloo', 'Bruno', TO_DATE('2016-01-30','YYYY-MM-DD'), 350, 'ESP00005');
-INSERT INTO animal VALUES ('RFID0006', 'Ghost', 'Luna', TO_DATE('2020-07-14','YYYY-MM-DD'), 70,  'ESP00006');
-INSERT INTO animal VALUES ('RFID0007', 'Stripe', 'Zara', TO_DATE('2018-08-08','YYYY-MM-DD'), 280, 'ESP00007');
-INSERT INTO animal VALUES ('RFID0008', 'Koko', 'Milo', TO_DATE('2014-04-25','YYYY-MM-DD'), 160, 'ESP00008');
-INSERT INTO animal VALUES ('RFID0009', 'Splash', 'Hugo', TO_DATE('2013-12-05','YYYY-MM-DD'), 950, 'ESP00009');
-INSERT INTO animal VALUES ('RFID0010', 'Snap', 'Nero', TO_DATE('2021-06-10','YYYY-MM-DD'), 500, 'ESP00010');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00001', 'Carnivore');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00002', 'Herbivore');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00003', 'Omnivore');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00004', 'Piscivore');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00005', 'Insectivore');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00006', 'Frugivore');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00007', 'Granivore');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00008', 'Nectarivore');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00009', 'Folivore');
+INSERT INTO regime (id_regime, libelle_regime) VALUES ('REG00010', 'Charognard');
+
+INSERT INTO animal VALUES ('RFID0001', 'Leo', 'Simba', TO_DATE('2018-05-12','YYYY-MM-DD'), 190, 'ESP00001', 'REG00001');
+INSERT INTO animal VALUES ('RFID0002', 'Rajah', 'Khan', TO_DATE('2017-03-21','YYYY-MM-DD'), 220, 'ESP00002', 'REG00003');
+INSERT INTO animal VALUES ('RFID0003', 'Babar', 'Raja', TO_DATE('2015-09-02','YYYY-MM-DD'), 300, 'ESP00003', 'REG00002');
+INSERT INTO animal VALUES ('RFID0004', 'Longneck', 'Gigi', TO_DATE('2019-11-18','YYYY-MM-DD'), 800, 'ESP00004', 'REG00002');
+INSERT INTO animal VALUES ('RFID0005', 'Baloo', 'Bruno', TO_DATE('2016-01-30','YYYY-MM-DD'), 350, 'ESP00005', 'REG00003');
+INSERT INTO animal VALUES ('RFID0006', 'Ghost', 'Luna', TO_DATE('2020-07-14','YYYY-MM-DD'), 70,  'ESP00006', 'REG00001');
+INSERT INTO animal VALUES ('RFID0007', 'Stripe', 'Zara', TO_DATE('2018-08-08','YYYY-MM-DD'), 280, 'ESP00007', 'REG00002');
+INSERT INTO animal VALUES ('RFID0008', 'Koko', 'Milo', TO_DATE('2014-04-25','YYYY-MM-DD'), 160, 'ESP00008', 'REG00003');
+INSERT INTO animal VALUES ('RFID0009', 'Splash', 'Hugo', TO_DATE('2013-12-05','YYYY-MM-DD'), 950, 'ESP00009', 'REG00004');
+INSERT INTO animal VALUES ('RFID0010', 'Snap', 'Nero', TO_DATE('2021-06-10','YYYY-MM-DD'), 500, 'ESP00010', 'REG00001');
 
 INSERT INTO filiation VALUES ('RFID0001','PERE','RFID0002');
 INSERT INTO filiation VALUES ('RFID0001','MERE','RFID0003');
@@ -52,17 +63,6 @@ INSERT INTO autoriser VALUES ('ESP00006','ESP00008',1);
 INSERT INTO autoriser VALUES ('ESP00007','ESP00009',0);
 INSERT INTO autoriser VALUES ('ESP00008','ESP00010',1);
 INSERT INTO autoriser VALUES ('ESP00009','ESP00001',0);
-
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00001', 'Carnivore');
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00002', 'Herbivore');
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00003', 'Omnivore');
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00004', 'Piscivore');
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00005', 'Insectivore');
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00006', 'Frugivore');
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00007', 'Granivore');
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00008', 'Nectarivore');
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00009', 'Folivore');
-INSERT INTO regime (id_regime, libelle) VALUES ('REG00010', 'Charognard');
 
 INSERT INTO alimentation VALUES ('RFID0001','REG00001', TO_DATE('2026-01-01','YYYY-MM-DD'), 5);
 INSERT INTO alimentation VALUES ('RFID0002','REG00003', TO_DATE('2026-01-02','YYYY-MM-DD'), 7);
@@ -97,16 +97,16 @@ INSERT INTO enclos VALUES ('ENC00008', 48.856900, 2.351100, 1600.60, 'ZONE0008')
 INSERT INTO enclos VALUES ('ENC00009', 48.857400, 2.352500, 1425.80, 'ZONE0009');
 INSERT INTO enclos VALUES ('ENC00010', 48.856100, 2.353300, 1100.00, 'ZONE0010');
 
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0001', 'Zone aquatique');
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0002', 'Espace arboré');
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0003', 'Climatisation contrôlée');
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0004', 'Sol sablonneux');
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0005', 'Rochers artificiels');
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0006', 'Système de brumisation');
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0007', 'Double clôture de sécurité');
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0008', 'Zone ombragée');
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0009', 'Espace chauffé');
-INSERT INTO particularite (id_particularite, libelle) VALUES ('PART0010', 'Caméras de surveillance');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0001', 'Zone aquatique');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0002', 'Espace arboré');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0003', 'Climatisation contrôlée');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0004', 'Sol sablonneux');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0005', 'Rochers artificiels');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0006', 'Système de brumisation');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0007', 'Double clôture de sécurité');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0008', 'Zone ombragée');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0009', 'Espace chauffé');
+INSERT INTO particularite (id_particularite, libelle_particularite) VALUES ('PART0010', 'Caméras de surveillance');
 
 INSERT INTO posseder VALUES ('ENC00001','PART0001');
 INSERT INTO posseder VALUES ('ENC00001','PART0008');
@@ -147,43 +147,43 @@ INSERT INTO type_personnel VALUES ('TPPE0003','VETERINAIRE');
 INSERT INTO type_personnel VALUES ('TPPE0004','TECHNICIEN');
 INSERT INTO type_personnel VALUES ('TPPE0005','DIRECTEUR');
 
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0001','TPPE0001','Durand','Marc',TO_DATE('2015-03-12','YYYY-MM-DD'),3500.00,'EQUI0001','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0002','TPPE0002','Leroy','Sophie',TO_DATE('2018-06-21','YYYY-MM-DD'),2200.00,'EQUI0002','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0003','TPPE0003','Martin','Claire',TO_DATE('2016-09-05','YYYY-MM-DD'),4200.00,'EQUI0003','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0004','TPPE0002','Bernard','Lucas',TO_DATE('2019-01-17','YYYY-MM-DD'),2100.00,'EQUI0004','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0005','TPPE0004','Moreau','Julie',TO_DATE('2020-11-02','YYYY-MM-DD'),2000.00,'EQUI0005','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0001','TPPE0001','Durand','Marc',TO_DATE('2015-03-12','YYYY-MM-DD'),3500.00,'EQUI0001','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0002','TPPE0002','Leroy','Sophie',TO_DATE('2018-06-21','YYYY-MM-DD'),2200.00,'EQUI0002','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0003','TPPE0003','Martin','Claire',TO_DATE('2016-09-05','YYYY-MM-DD'),4200.00,'EQUI0003','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0004','TPPE0002','Bernard','Lucas',TO_DATE('2019-01-17','YYYY-MM-DD'),2100.00,'EQUI0004','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0005','TPPE0004','Moreau','Julie',TO_DATE('2020-11-02','YYYY-MM-DD'),2000.00,'EQUI0005','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
 
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0011','TPPE0002','Lemoine','Paul',TO_DATE('2018-03-01','YYYY-MM-DD'),2150.00,'EQUI0001','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0006','TPPE0002','Petit','Hugo',TO_DATE('2017-04-30','YYYY-MM-DD'),2300.00,'EQUI0006','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0007','TPPE0003','Robert','Emma',TO_DATE('2014-08-14','YYYY-MM-DD'),4500.00,'EQUI0007','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0008','TPPE0002','Richard','Tom',TO_DATE('2021-02-10','YYYY-MM-DD'),2050.00,'EQUI0008','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0009','TPPE0004','Garcia','Anna',TO_DATE('2019-07-19','YYYY-MM-DD'),2100.00,'EQUI0009','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0011','TPPE0002','Lemoine','Paul',TO_DATE('2018-03-01','YYYY-MM-DD'),2150.00,'EQUI0001','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0006','TPPE0002','Petit','Hugo',TO_DATE('2017-04-30','YYYY-MM-DD'),2300.00,'EQUI0006','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0007','TPPE0003','Robert','Emma',TO_DATE('2014-08-14','YYYY-MM-DD'),4500.00,'EQUI0007','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0008','TPPE0002','Richard','Tom',TO_DATE('2021-02-10','YYYY-MM-DD'),2050.00,'EQUI0008','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0009','TPPE0004','Garcia','Anna',TO_DATE('2019-07-19','YYYY-MM-DD'),2100.00,'EQUI0009','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
 
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0010','TPPE0001','Roux','Nicolas',TO_DATE('2013-05-25','YYYY-MM-DD'),3800.00,'EQUI0010','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0012','TPPE0002','Faure','Julie',TO_DATE('2019-05-14','YYYY-MM-DD'),2200.00,'EQUI0002','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0013','TPPE0003','Blanc','Laura',TO_DATE('2016-10-20','YYYY-MM-DD'),4300.00,'EQUI0003','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0014','TPPE0004','Guerin','Marc',TO_DATE('2020-01-09','YYYY-MM-DD'),2050.00,'EQUI0004','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0015','TPPE0002','Renaud','Alice',TO_DATE('2021-07-23','YYYY-MM-DD'),2100.00,'EQUI0005','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0010','TPPE0001','Roux','Nicolas',TO_DATE('2013-05-25','YYYY-MM-DD'),3800.00,'EQUI0010','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0012','TPPE0002','Faure','Julie',TO_DATE('2019-05-14','YYYY-MM-DD'),2200.00,'EQUI0002','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0013','TPPE0003','Blanc','Laura',TO_DATE('2016-10-20','YYYY-MM-DD'),4300.00,'EQUI0003','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0014','TPPE0004','Guerin','Marc',TO_DATE('2020-01-09','YYYY-MM-DD'),2050.00,'EQUI0004','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0015','TPPE0002','Renaud','Alice',TO_DATE('2021-07-23','YYYY-MM-DD'),2100.00,'EQUI0005','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
 
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0016','TPPE0002','Marchand','Leo',TO_DATE('2017-12-12','YYYY-MM-DD'),2250.00,'EQUI0006','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0017','TPPE0003','Colin','Eva',TO_DATE('2015-09-30','YYYY-MM-DD'),4400.00,'EQUI0007','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0018','TPPE0004','Perrin','Nina',TO_DATE('2022-02-18','YYYY-MM-DD'),2000.00,'EQUI0008','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0019','TPPE0002','Muller','Theo',TO_DATE('2019-08-07','YYYY-MM-DD'),2150.00,'EQUI0009','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0020','TPPE0002','Henry','Camille',TO_DATE('2018-11-11','YYYY-MM-DD'),2200.00,'EQUI0010','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0016','TPPE0002','Marchand','Leo',TO_DATE('2017-12-12','YYYY-MM-DD'),2250.00,'EQUI0006','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0017','TPPE0003','Colin','Eva',TO_DATE('2015-09-30','YYYY-MM-DD'),4400.00,'EQUI0007','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0018','TPPE0004','Perrin','Nina',TO_DATE('2022-02-18','YYYY-MM-DD'),2000.00,'EQUI0008','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0019','TPPE0002','Muller','Theo',TO_DATE('2019-08-07','YYYY-MM-DD'),2150.00,'EQUI0009','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0020','TPPE0002','Henry','Camille',TO_DATE('2018-11-11','YYYY-MM-DD'),2200.00,'EQUI0010','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
 
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0021','TPPE0004','Andre','Julien',TO_DATE('2020-04-05','YYYY-MM-DD'),2100.00,'EQUI0001','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0022','TPPE0002','Lefevre','Chloe',TO_DATE('2017-06-22','YYYY-MM-DD'),2300.00,'EQUI0002','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0023','TPPE0003','Roche','Maxime',TO_DATE('2013-03-15','YYYY-MM-DD'),4600.00,'EQUI0003','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0024','TPPE0002','Boyer','Ines',TO_DATE('2021-09-01','YYYY-MM-DD'),2050.00,'EQUI0004','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0025','TPPE0004','Noel','Alex',TO_DATE('2016-12-03','YYYY-MM-DD'),2150.00,'EQUI0005','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0021','TPPE0004','Andre','Julien',TO_DATE('2020-04-05','YYYY-MM-DD'),2100.00,'EQUI0001','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0022','TPPE0002','Lefevre','Chloe',TO_DATE('2017-06-22','YYYY-MM-DD'),2300.00,'EQUI0002','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0023','TPPE0003','Roche','Maxime',TO_DATE('2013-03-15','YYYY-MM-DD'),4600.00,'EQUI0003','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0024','TPPE0002','Boyer','Ines',TO_DATE('2021-09-01','YYYY-MM-DD'),2050.00,'EQUI0004','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0025','TPPE0004','Noel','Alex',TO_DATE('2016-12-03','YYYY-MM-DD'),2150.00,'EQUI0005','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
 
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0026','TPPE0002','Barbier','Lina',TO_DATE('2018-02-27','YYYY-MM-DD'),2250.00,'EQUI0006','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0027','TPPE0003','Paris','Nathan',TO_DATE('2014-07-19','YYYY-MM-DD'),4550.00,'EQUI0007','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0028','TPPE0002','Caron','Emma',TO_DATE('2019-10-13','YYYY-MM-DD'),2100.00,'EQUI0008','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0029','TPPE0004','Guillot','Victor',TO_DATE('2020-06-06','YYYY-MM-DD'),2000.00,'EQUI0009','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0030','TPPE0002','Fontaine','Sarah',TO_DATE('2017-01-17','YYYY-MM-DD'),2350.00,'EQUI0010','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0026','TPPE0002','Barbier','Lina',TO_DATE('2018-02-27','YYYY-MM-DD'),2250.00,'EQUI0006','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0027','TPPE0003','Paris','Nathan',TO_DATE('2014-07-19','YYYY-MM-DD'),4550.00,'EQUI0007','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0028','TPPE0002','Caron','Emma',TO_DATE('2019-10-13','YYYY-MM-DD'),2100.00,'EQUI0008','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0029','TPPE0004','Guillot','Victor',TO_DATE('2020-06-06','YYYY-MM-DD'),2000.00,'EQUI0009','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0030','TPPE0002','Fontaine','Sarah',TO_DATE('2017-01-17','YYYY-MM-DD'),2350.00,'EQUI0010','$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
 
-INSERT INTO personnel (id_personnel,type_personnel,nom,prenom,date_entree,salaire,id_equipe,mot_de_passe) VALUES ('PERS0031','TPPE0005','dir_name','dir_name1',TO_DATE('2004-02-07','YYYY-MM-DD'),46789.00,NULL,'$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
+INSERT INTO personnel (id_personnel,type_personnel,nom_personnel,prenom_personnel,date_entree_personnel,salaire_personnel,id_equipe,pwd) VALUES ('PERS0031','TPPE0005','dir_name','dir_name1',TO_DATE('2004-02-07','YYYY-MM-DD'),46789.00,NULL,'$2y$12$Ra7FYr1EV..hdF2BpfU2cugmtyxETdf79J1vQoiBNAGbvArKP8TiW');
 
 UPDATE equipe SET id_chef_equipe = 'PERS0001' WHERE id_equipe = 'EQUI0001';
 UPDATE equipe SET id_chef_equipe = 'PERS0002' WHERE id_equipe = 'EQUI0002';
@@ -296,16 +296,16 @@ INSERT INTO visiteur VALUES ('VIS00008','Leroy','Ines');
 INSERT INTO visiteur VALUES ('VIS00009','Moreau','Theo');
 INSERT INTO visiteur VALUES ('VIS00010','Simon','Camille');
 
-INSERT INTO parrainer VALUES ('PAR00001','VIS00001','RFID0001','BRONZE');
-INSERT INTO parrainer VALUES ('PAR00002','VIS00002','RFID0002','ARGENT');
-INSERT INTO parrainer VALUES ('PAR00003','VIS00003','RFID0003','OR');
-INSERT INTO parrainer VALUES ('PAR00004','VIS00004','RFID0004','BRONZE');
-INSERT INTO parrainer VALUES ('PAR00005','VIS00005','RFID0005','ARGENT');
-INSERT INTO parrainer VALUES ('PAR00006','VIS00006','RFID0006','OR');
-INSERT INTO parrainer VALUES ('PAR00007','VIS00007','RFID0007','BRONZE');
-INSERT INTO parrainer VALUES ('PAR00008','VIS00008','RFID0008','ARGENT');
-INSERT INTO parrainer VALUES ('PAR00009','VIS00009','RFID0009','OR');
-INSERT INTO parrainer VALUES ('PAR00010','VIS00010','RFID0010','BRONZE');
+INSERT INTO parrainage VALUES ('PAR00001','VIS00001','RFID0001','BRONZE');
+INSERT INTO parrainage VALUES ('PAR00002','VIS00002','RFID0002','ARGENT');
+INSERT INTO parrainage VALUES ('PAR00003','VIS00003','RFID0003','OR');
+INSERT INTO parrainage VALUES ('PAR00004','VIS00004','RFID0004','BRONZE');
+INSERT INTO parrainage VALUES ('PAR00005','VIS00005','RFID0005','ARGENT');
+INSERT INTO parrainage VALUES ('PAR00006','VIS00006','RFID0006','OR');
+INSERT INTO parrainage VALUES ('PAR00007','VIS00007','RFID0007','BRONZE');
+INSERT INTO parrainage VALUES ('PAR00008','VIS00008','RFID0008','ARGENT');
+INSERT INTO parrainage VALUES ('PAR00009','VIS00009','RFID0009','OR');
+INSERT INTO parrainage VALUES ('PAR00010','VIS00010','RFID0010','BRONZE');
 
 INSERT INTO prestation VALUES ('PRESTA01','BRONZE','Certificat de parrainage');
 INSERT INTO prestation VALUES ('PRESTA02','BRONZE','Newsletter mensuelle');
@@ -328,5 +328,3 @@ INSERT INTO gagner VALUES ('BOUT0007', TO_DATE('2026-01-07','YYYY-MM-DD'), 1500.
 INSERT INTO gagner VALUES ('BOUT0008', TO_DATE('2026-01-08','YYYY-MM-DD'), 670.45,  'PERS0008');
 INSERT INTO gagner VALUES ('BOUT0009', TO_DATE('2026-01-09','YYYY-MM-DD'), 1340.60, 'PERS0009');
 INSERT INTO gagner VALUES ('BOUT0010', TO_DATE('2026-01-10','YYYY-MM-DD'), 1025.30, 'PERS0010');
-
-EXIT;

@@ -88,9 +88,13 @@ CREATE TABLE equipe(
 	id_chef_equipe CHAR(8),
 	FOREIGN KEY (id_zone) REFERENCES zone(id_zone)
 	);
+CREATE TABLE type_personnel(
+	id_type CHAR(8) PRIMARY KEY,
+	libelle VARCHAR(255)
+);
 CREATE TABLE personnel(
 	id_personnel CHAR(8) PRIMARY KEY, 
-	type_personnel VARCHAR(255), 
+	type_personnel CHAR(8), 
 	nom VARCHAR(255), 
 	prenom VARCHAR(255), 
 	date_entree DATE, 
@@ -98,7 +102,8 @@ CREATE TABLE personnel(
 	id_equipe CHAR(8),
 	mot_de_passe VARCHAR(255),
 	actif NUMBER(1) DEFAULT 0,
-	FOREIGN KEY (id_equipe) REFERENCES equipe(id_equipe)
+	FOREIGN KEY (id_equipe) REFERENCES equipe(id_equipe),
+	FOREIGN KEY (type_personnel) REFERENCES type_personnel(id_type)
 	);
 
 ALTER TABLE equipe 

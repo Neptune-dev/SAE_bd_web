@@ -105,13 +105,13 @@ CREATE TABLE type_personnel(
 
 CREATE TABLE personnel(
 	id_personnel CHAR(8) PRIMARY KEY, 
-	type_personnel CHAR(8), 
+	type_personnel CHAR(8) NOT NULL, 
 	nom_personnel VARCHAR(255), 
 	prenom_personnel VARCHAR(255), 
 	date_entree_personnel DATE, 
 	salaire_personnel NUMBER(7,2), 
 	id_equipe CHAR(8),
-	pwd VARCHAR(255),
+	pwd VARCHAR(255) NOT NULL,
 	actif NUMBER(1) DEFAULT 0,
 	FOREIGN KEY (id_equipe) REFERENCES equipe(id_equipe),
 	FOREIGN KEY (type_personnel) REFERENCES type_personnel(id_type)

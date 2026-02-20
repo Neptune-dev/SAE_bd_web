@@ -25,7 +25,6 @@
     </header>
     <footer>
         <a href="phpinfo.php">php Info</a><br>
-        <a href="testor.php">Page Test Oracle</a>
     </footer>
 </body>
 </html>

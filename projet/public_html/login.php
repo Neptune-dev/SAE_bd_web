@@ -1,12 +1,9 @@
-<?php
-    session_start();
-?>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -14,54 +11,34 @@
 
     <?php
         //si l'utilisateur est déjà connecté, on peut rediriger directement
-        if (isset($_SESSION["user"]))
+        /*if (isset($_SESSION["user"]))
         {
-            header("Location: mypage.php");
+            header("Location: dashboard.php");
             exit();
-        }
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST")
-        {
+        }*/
+        session_start();
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $userID = $_POST["userID"];
             $pwd = $_POST["pwd"];
 
-            //recupération des constantes
-            require_once('myparam.inc.php');
+            require_once('db.php');
 
-            //connexion à la db
-            $conn = oci_connect(constant("MYUSER"), constant("MYPASS"), constant("MYHOST"));
-            if (!$conn) {
-                $e = oci_error();
-                trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-            }
+            $sql = "SELECT * FROM personnel WHERE id_personnel=:id";
+            $user = db_one($sql, [":id" => $userID]);
+            if (!$user) {
+                $error = "Utilisateur introuvable.";
+            } elseif (!password_verify($pwd, $user['MOT_DE_PASSE'])) {
+                $error = "Mot de passe incorrect";
+            } else {
+                if ((int)$user['ACTIF'] === 0){
+                    $_SESSION['user']=$user;
+                    header("Location: inscription.php");
+                    exit();
+                }
 
-            // Préparation de la requête
-            $stid = oci_parse($conn, 'SELECT * FROM PERSONNEL WHERE id_personnel = :userID');
-            if (!$stid) {
-                $e = oci_error($conn);
-                trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-            }
-            oci_bind_by_name($stid, ':userID', $userID);
-
-            // Exécution de la logique de la requête
-            $r = oci_execute($stid);
-            if (!$r) {
-                $e = oci_error($stid);
-                trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-            }
-
-            // fetch
-            $user = oci_fetch(_array($stid, OCI_ASSOC+OCI_RETURN_NULLS));
-
-            // vérif pwd
-            if ($user && password_verify($pwd, $user['pwd']))
-            {
-                $_SESSION["user"] = $user;
-                header("Location: mypage.php");
-                exit();
-            } else
-            {
-                echo "erreur credentials";
+                $_SESSION['user']=$user;
+                header("Location: dashboard.php");
+                exit;
             }
         }
     ?>
@@ -71,9 +48,5 @@
         Mot de passe : <input type="password" name="pwd" required>
         <button type="submit">Se connecter</button>
     </form>
-
-    <footer>
-        <a href="phpinfo.php">php Info</a>
-    </footer>
 </body>
 </html>

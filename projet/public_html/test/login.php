@@ -23,7 +23,7 @@
 
             require_once('db.php');
 
-            $sql = "SELECT actif,mot_de_passe FROM personnel WHERE id_personnel=:id";
+            $sql = "SELECT * FROM personnel WHERE id_personnel=:id";
             $user = db_one($sql, [":id" => $userID]);
             if (!$user) {
                 $error = "Utilisateur introuvable.";

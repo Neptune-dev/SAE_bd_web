@@ -16,7 +16,7 @@
                 echo $user;
                 $id=$user['ID_PERSONNEL'];
 
-                $sql="SELECT mot_de_passe,actif FROM personnel WHERE id_personnel=:id";
+                $sql="SELECT pwd,actif FROM personnel WHERE id_personnel=:id";
                 $row = db_one($sql,[":id" => $id]);
 
                 $mdp1=$_POST['mdp1'];
@@ -24,14 +24,14 @@
 
                 if ($_POST['id_pers']==$user['ID_PERSONNEL']) {
                     echo "1";
-                    if (password_verify($_POST['mdp'], $row['MOT_DE_PASSE'])) {
+                    if (password_verify($_POST['mdp'], $row['PWD'])) {
                         echo "2";
                         if ($mdp1==$mdp2) {
                             echo "3";
                             $hash=password_hash($mdp1, PASSWORD_DEFAULT);
                             $sql="UPDATE personnel SET actif=1 WHERE id_personnel=:id";
                             db_exec($sql,[":id"=>$id]);
-                            $sql="UPDATE personnel SET mot_de_passe =:mdp WHERE id_personnel=:id";
+                            $sql="UPDATE personnel SET pwd =:mdp WHERE id_personnel=:id";
                             db_exec($sql,[":id"=>$id,":mdp"=>$hash]);
                             header("Location: logout.php");
                             exit();

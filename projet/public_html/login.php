@@ -27,7 +27,7 @@
             $user = db_one($sql, [":id" => $userID]);
             if (!$user) {
                 $error = "Utilisateur introuvable.";
-            } elseif (!password_verify($pwd, $user['MOT_DE_PASSE'])) {
+            } elseif (!password_verify($pwd, $user['PWD'])) {
                 $error = "Mot de passe incorrect";
             } else {
                 if ((int)$user['ACTIF'] === 0){

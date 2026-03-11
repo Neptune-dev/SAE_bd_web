@@ -25,6 +25,11 @@
         <div>
             <button id="profilButton" class="sidebarButton">Mon Profil</button>
             <button id="teamButton" class="sidebarButton">Mon Équipe</button>
+            <?php
+                if ($user['TYPE_PERSONNEL']==="TPPE0003"){
+                    print("<button id='animalButton' class='sidebarButton>Ajouter un animal</button>");
+                }
+            ?>
             <button onclick="location.href='/public_html/logout.php'">Se déconnecter</button>
         </div>
     </div>

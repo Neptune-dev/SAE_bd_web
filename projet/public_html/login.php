@@ -30,12 +30,12 @@
             } elseif (!password_verify($pwd, $user['PWD'])) {
                 $error = "Mot de passe incorrect";
             } else {
+                $_SESSION['user']=$user;
                 if ((int)$user['ACTIF'] === 0){
-                    $_SESSION['user']=$user;
                     header("Location: inscription.php");
                     exit();
                 }
-
+                
                 $_SESSION['user']=$user;
                 header("Location: dashboard.php");
                 exit;

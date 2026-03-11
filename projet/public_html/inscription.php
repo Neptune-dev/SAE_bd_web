@@ -26,14 +26,14 @@
                     echo "1";
                     if (password_verify($_POST['mdp'], $row['PWD'])) {
                         echo "2";
-                        if ($mdp1==$mdp2) {
+                        if ($mdp1 == $mdp2) {
                             echo "3";
-                            $hash=password_hash($mdp1, PASSWORD_DEFAULT);
-                            $sql="UPDATE personnel SET actif=1 WHERE id_personnel=:id";
-                            db_exec($sql,[":id"=>$id]);
-                            $sql="UPDATE personnel SET pwd =:mdp WHERE id_personnel=:id";
-                            db_exec($sql,[":id"=>$id,":mdp"=>$hash]);
-                            header("Location: logout.php");
+                            $hash = password_hash($mdp1, PASSWORD_DEFAULT);
+                            $sql = "UPDATE personnel SET actif=1 WHERE id_personnel=:id";
+                            db_exec($sql, [":id"=>$id]);
+                            $sql = "UPDATE personnel SET pwd =:mdp WHERE id_personnel=:id";
+                            db_exec($sql, [":id"=>$id,":mdp"=>$hash]);
+                            header("Location: dashboard.php");
                             exit();
                         } else {
                             // Mot de passe 1 et 2 pas identique
@@ -43,9 +43,7 @@
                     }
                 }
 
-            } else {
-                echo "pb session";
-            }           
+            }        
         ?>
 
         <form action="#" method="POST">

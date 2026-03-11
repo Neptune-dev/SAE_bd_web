@@ -16,7 +16,7 @@
         <?php
             if (isset($_SESSION["user"]))
             {
-                echo ('<a href="mypage.php">Ma page</a><a href="logout.php">Se déconnecter</a>');
+                echo ('<a href="dashboard.php">Ma page</a><a href="logout.php">Se déconnecter</a>');
             } else
             {
                 echo ('<a href="login.php">Se connecter</a>');

@@ -10,13 +10,15 @@
     </header>
 
     <?php
+        session_start();
+
         //si l'utilisateur est déjà connecté, on peut rediriger directement
-        /*if (isset($_SESSION["user"]))
+        if (isset($_SESSION["user"]))
         {
             header("Location: dashboard.php");
             exit();
-        }*/
-        session_start();
+        }
+
         if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $userID = $_POST["userID"];
             $pwd = $_POST["pwd"];
@@ -30,7 +32,7 @@
             } elseif (!password_verify($pwd, $user['PWD'])) {
                 $error = "Mot de passe incorrect";
             } else {
-                $_SESSION['user']=$user;
+                $_SESSION['user'] = $user;
                 if ((int)$user['ACTIF'] === 0){
                     header("Location: inscription.php");
                     exit();
@@ -40,6 +42,8 @@
                 header("Location: dashboard.php");
                 exit;
             }
+
+            echo($error);
         }
     ?>
 

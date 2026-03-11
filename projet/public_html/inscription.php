@@ -36,13 +36,12 @@
                             header("Location: dashboard.php");
                             exit();
                         } else {
-                            // Mot de passe 1 et 2 pas identique
+                            $error = "Le mot de passe n'est pas identique";
                         }
                     } else {
-                        // Mot de passe ancien pas bon
+                        $error = "L'ancien mot de passe est erroné";
                     }
                 }
-
             }        
         ?>
 

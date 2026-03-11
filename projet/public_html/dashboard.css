@@ -81,6 +81,16 @@ button.selected {
     border-color: #f4f4f9;
 }
 
+#logoutBtn {
+    background-color: #af604c;
+    border-color: #af604c;
+}
+
+#logoutBtn:hover {
+    background-color: #c74626;
+    border-color: #c74626;
+}
+
 @media (max-width: 600px) {
     .login {
         width: 90%;

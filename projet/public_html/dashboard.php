@@ -6,6 +6,8 @@
         exit();
     }
     $user = $_SESSION['user'];
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -23,15 +25,18 @@
 
         <label>Mes services :</label>
         <div>
-            <button id="profilButton" class="sidebarButton">Mon Profil</button>
+            <button id="profileButton" class="sidebarButton">Mon Profil</button>
             <button id="teamButton" class="sidebarButton">Mon Équipe</button>
-            <button onclick="location.href='/public_html/logout.php'">Se déconnecter</button>
+            <button id="animalButton" class="sidebarButton">Animaux</button>
+            <button id="testButton" class="sidebarButton">Test</button>
+
+            <button id="logoutBtn" onclick="location.href='logout.php'">Se déconnecter</button>
         </div>
     </div>
 
     <div id="contentContainer">
         <div class="content" style="visibility:visible;">Bienvenue, <?= $user["PRENOM_PERSONNEL"]?> !</div>
-        <span id="profilContent" class="content">Profil</span>
+        <span id="profileContent" class="content">Profil</span>
         <span id="teamContent" class="content">Team</span>
         <div id="animalContent" class="content">le contenu animal</div>
         <div id="testContent" class="content">

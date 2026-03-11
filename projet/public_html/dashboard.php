@@ -13,14 +13,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-
-    <!-- redirection après 10 secondes -->
-    <meta http-equiv="refresh" content="10;url=logout.php">
 </head>
 <body>
 
-    <h1><?= $user["prenom_personnel"], " ", strtoupper($user["nom_personnel"])?></h1>
-    <h2><?= $user["id_personnel"] ?></h2>
+    <h1><?= strtoupper($user["NOM_PERSONNEL"]), " ", $user["PRENOM_PERSONNEL"]?></h1>
+    <h2>N° de Personnel : <?= $user["ID_PERSONNEL"] ?></h2>
 
 </body>
 </html>

@@ -30,7 +30,7 @@
             } elseif (!password_verify($pwd, $user['PWD'])) {
                 $error = "Mot de passe incorrect";
             } else {
-                $_SESSION['user']=$user;
+                $_SESSION['user'] = $user;
                 if ((int)$user['ACTIF'] === 0){
                     header("Location: inscription.php");
                     exit();

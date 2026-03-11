@@ -25,6 +25,7 @@
         <div>
             <button id="profilButton" class="sidebarButton">Mon Profil</button>
             <button id="teamButton" class="sidebarButton">Mon Équipe</button>
+            <button onclick="location.href='/public_html/logout.php'">Se déconnecter</button>
         </div>
     </div>
 

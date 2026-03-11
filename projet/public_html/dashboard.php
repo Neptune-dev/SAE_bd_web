@@ -23,14 +23,17 @@
 
         <label>Mes services :</label>
         <div>
-            <button>Mon Profil</button>
-            <button>Mon Équipe</button>
+            <button id="profilButton" class="sidebarButton">Mon Profil</button>
+            <button id="teamButton" class="sidebarButton">Mon Équipe</button>
         </div>
     </div>
 
-    <div id="content">
-        <span>Coucou</span>
+    <div id="contentContainer">
+        <div class="content" style="visibility:visible;">Bienvenue, <?= $user["PRENOM_PERSONNEL"]?> !</div>
+        <span id="profilContent" class="content">Profil</span>
+        <span id="teamContent" class="content">Team</span>
     </div>
 
+    <script src="dashboard.js"></script>
 </body>
 </html>

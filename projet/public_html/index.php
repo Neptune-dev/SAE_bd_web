@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -24,7 +24,7 @@
         ?>
     </header>
     <footer>
-        <a href="phpinfo.php">php Info</a><br>
+        <span>Le footer</span>
     </footer>
 </body>
 </html>

@@ -25,6 +25,8 @@
         <div>
             <button id="profilButton" class="sidebarButton">Mon Profil</button>
             <button id="teamButton" class="sidebarButton">Mon Équipe</button>
+            <button id="animalButton" class="sidebarButton">L'animal</button>
+            <button id="testButton" class="sidebarButton">Test</button>
         </div>
     </div>
 
@@ -32,6 +34,10 @@
         <div class="content" style="visibility:visible;">Bienvenue, <?= $user["PRENOM_PERSONNEL"]?> !</div>
         <span id="profilContent" class="content">Profil</span>
         <span id="teamContent" class="content">Team</span>
+        <div id="animalContent" class="content">le contenu animal</div>
+        <div id="testContent" class="content">
+            <?php require_once("testView.php") ?>
+        </div>
     </div>
 
     <script src="dashboard.js"></script>

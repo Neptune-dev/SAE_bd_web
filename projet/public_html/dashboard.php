@@ -33,6 +33,10 @@
         <div class="content" style="visibility:visible;">Bienvenue, <?= $user["PRENOM_PERSONNEL"]?> !</div>
         <span id="profilContent" class="content">Profil</span>
         <span id="teamContent" class="content">Team</span>
+        <div id="animalContent" class="content">le contenu animal</div>
+        <div id="testContent" class="content">
+            <?php require("testView.php") ?>
+        </div>
     </div>
 
     <script src="dashboard.js"></script>

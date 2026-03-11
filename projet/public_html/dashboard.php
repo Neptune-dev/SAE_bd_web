@@ -36,7 +36,7 @@
         <span id="teamContent" class="content">Team</span>
         <div id="animalContent" class="content">le contenu animal</div>
         <div id="testContent" class="content">
-            <?php require_once("testView.php") ?>
+            <?php require("testView.php") ?>
         </div>
     </div>
 

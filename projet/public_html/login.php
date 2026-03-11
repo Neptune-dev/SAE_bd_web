@@ -10,13 +10,15 @@
     </header>
 
     <?php
+        session_start();
+
         //si l'utilisateur est déjà connecté, on peut rediriger directement
-        /*if (isset($_SESSION["user"]))
+        if (isset($_SESSION["user"]))
         {
             header("Location: dashboard.php");
             exit();
-        }*/
-        session_start();
+        }
+
         if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $userID = $_POST["userID"];
             $pwd = $_POST["pwd"];
@@ -40,6 +42,8 @@
                 header("Location: dashboard.php");
                 exit;
             }
+
+            echo($error);
         }
     ?>
 

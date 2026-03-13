@@ -33,6 +33,7 @@
                             db_exec($sql, [":id"=>$id]);
                             $sql = "UPDATE personnel SET pwd =:mdp WHERE id_personnel=:id";
                             db_exec($sql, [":id"=>$id,":mdp"=>$hash]);
+                            http_response_code(301);
                             header("Location: dashboard.php");
                             exit();
                         } else {

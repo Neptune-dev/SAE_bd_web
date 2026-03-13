@@ -15,6 +15,7 @@
         //si l'utilisateur est déjà connecté, on peut rediriger directement
         if (isset($_SESSION["user"]))
         {
+            http_response_code(301);
             header("Location: dashboard.php");
             exit();
         }
@@ -28,21 +29,33 @@
             $sql = "SELECT * FROM personnel WHERE id_personnel=:id";
             $user = db_one($sql, [":id" => $userID]);
             if (!$user) {
+                $status = 401;
                 $error = "Utilisateur introuvable.";
             } elseif (!password_verify($pwd, $user['PWD'])) {
+                $status = 401;
                 $error = "Mot de passe incorrect";
             } else {
                 $_SESSION['user'] = $user;
                 if ((int)$user['ACTIF'] === 0){
+                    http_response_code(301);
                     header("Location: inscription.php");
                     exit();
                 }
                 
-                $_SESSION['user']=$user;
-                header("Location: dashboard.php");
-                exit;
+                // on recupère le type_personnel pour les droits d'accès
+                $sql = "SELECT libelle_personnel FROM personnel INNER JOIN type_personnel ON personnel.type_personnel=type_personnel.id_type WHERE personnel.id_personnel=:id";
+                $libPers = db_one($sql, [":id" => $userID]);
+                if (!$libPers) {
+                    $status = 500;
+                    $error = "L'utilisateur n'a pas de type_personnel ou la requete a échoué.";
+                } else {
+                    $_SESSION['user']=$user;
+                    $_SESSION['userType']=$libPers['LIBELLE_PERSONNEL'];
+                    header("Location: dashboard.php");
+                    exit;
+                }   
             }
-
+            http_response_code($status);
             echo($error);
         }
     ?>

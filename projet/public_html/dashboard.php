@@ -2,12 +2,19 @@
     // vérification de la session
     session_start();
     if (!isset($_SESSION['user'])) {
+        http_response_code(401);
         header("Location: login.php");
         exit();
+    } elseif (!isset($_SESSION['userType'])) {
+        http_response_code(500);
+        header("Location: logout.php");
+        exit();
     }
-    $user = $_SESSION['user'];
 
-    
+    $user = $_SESSION['user'];
+    $userType = $_SESSION['userType'];
+
+    require_once("permission.php");
 ?>
 
 <!DOCTYPE html>
@@ -27,9 +34,14 @@
         <div>
             <button id="profileButton" class="sidebarButton">Mon Profil</button>
             <button id="teamButton" class="sidebarButton">Mon Équipe</button>
-            <button id="animalButton" class="sidebarButton">Animaux</button>
-            <button id="testButton" class="sidebarButton">Test</button>
 
+            <?php if(gotAnimalPermission($userType)): ?>
+                <button id="animalButton" class="sidebarButton">Animaux</button>
+            <?php elseif(gotTestPermission($userType)): ?>
+                <button id="testButton" class="sidebarButton">Test</button>
+            <?php endif; ?>
+            
+            
             <button id="logoutBtn" onclick="location.href='logout.php'">Se déconnecter</button>
         </div>
     </div>
@@ -38,10 +50,14 @@
         <div class="content" style="visibility:visible;">Bienvenue, <?= $user["PRENOM_PERSONNEL"]?> !</div>
         <span id="profileContent" class="content">Profil</span>
         <span id="teamContent" class="content">Team</span>
-        <div id="animalContent" class="content">le contenu animal</div>
-        <div id="testContent" class="content">
-            <?php require("testView.php") ?>
-        </div>
+        
+        <?php if(gotAnimalPermission($userType)): ?>
+            <div id="animalContent" class="content">le contenu animal</div>
+        <?php elseif(gotTestPermission($userType)): ?>
+            <div id="testContent" class="content">
+                <?php require("testView.php") ?>
+            </div>
+        <?php endif; ?>
     </div>
 
     <script src="dashboard.js"></script>

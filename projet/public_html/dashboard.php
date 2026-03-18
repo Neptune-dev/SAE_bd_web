@@ -56,7 +56,7 @@
         <div class="content" style="visibility:visible;">
             Bienvenue,
             <?php
-                echo ($user["PRENOM_PERSONNEL"] != NULL) ? $user["PRENOM_PERSONNEL"] : $user["ID_PERSONNEL"];
+                echo ($user["PRENOM_PERSONNEL"] != "") ? $user["PRENOM_PERSONNEL"] : $user["ID_PERSONNEL"];
             ?>
              !
         </div>

@@ -1,10 +1,10 @@
 <?php
 
-function gotAdminPermission ($utype):bool {
-    return ($utype == "ADMIN") ? true : false;
+function gotAdminPermission ($uType):bool {
+    return ($uType == "ADMIN") ? true : false;
 }
 
-function gotTeamPermission ($utype):bool {
+function gotTeamPermission ($uType):bool {
     if (!in_array($uType, array("ADMIN", "DIRECTEUR"))) {
         return true;
     }

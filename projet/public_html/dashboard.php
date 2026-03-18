@@ -53,7 +53,13 @@
     </div>
 
     <div id="contentContainer">
-        <div class="content" style="visibility:visible;">Bienvenue, <?= $user["PRENOM_PERSONNEL"]?> !</div>
+        <div class="content" style="visibility:visible;">
+            Bienvenue,
+            <?php
+                echo ($user["PRENOM_PERSONNEL"] != NULL) ? $user["PRENOM_PERSONNEL"] : $user["ID_PERSONNEL"];
+            ?>
+             !
+        </div>
         
         <span id="profileContent" class="content">Profil</span>
         
@@ -61,7 +67,9 @@
             <span id="teamContent" class="content">Team</span>
         <?php endif; ?>
         <?php if(gotAdminPermission($userType)): ?>
-            <div id="admContent" class="content">panneau admin</div>
+            <div id="admContent" class="content">
+                <?php require("adminPanel.php") ?>
+            </div>
         <?php endif; ?>
         <?php if(gotAnimalPermission($userType)): ?>
             <div id="animalContent" class="content">le contenu animal</div>

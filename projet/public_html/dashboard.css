@@ -81,7 +81,17 @@ button.selected {
     border-color: #f4f4f9;
 }
 
-#logoutBtn {
+#admBtn {
+    background-color: #4c5eaf;
+    border-color: #4c5eaf;
+}
+
+#admButton:hover {
+    background-color: #555e88;
+    border-color: #555e88;
+}
+
+#logoutButton {
     background-color: #af604c;
     border-color: #af604c;
 }

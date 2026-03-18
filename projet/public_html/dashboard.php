@@ -33,11 +33,17 @@
         <label>Mes services :</label>
         <div>
             <button id="profileButton" class="sidebarButton">Mon Profil</button>
-            <button id="teamButton" class="sidebarButton">Mon Équipe</button>
-
+            
+            <?php if(gotTeamPermission($userType)): ?>
+                <button id="teamButton" class="sidebarButton">Mon Équipe</button>
+            <?php endif; ?>
+            <?php if(gotAdminPermission($userType)): ?>
+                <button id="admButton" class="sidebarButton">Paneau Administrateur</button>
+            <?php endif; ?>
             <?php if(gotAnimalPermission($userType)): ?>
                 <button id="animalButton" class="sidebarButton">Animaux</button>
-            <?php elseif(gotTestPermission($userType)): ?>
+            <?php endif; ?>
+            <?php if(gotTestPermission($userType)): ?>
                 <button id="testButton" class="sidebarButton">Test</button>
             <?php endif; ?>
             
@@ -48,12 +54,19 @@
 
     <div id="contentContainer">
         <div class="content" style="visibility:visible;">Bienvenue, <?= $user["PRENOM_PERSONNEL"]?> !</div>
-        <span id="profileContent" class="content">Profil</span>
-        <span id="teamContent" class="content">Team</span>
         
+        <span id="profileContent" class="content">Profil</span>
+        
+        <?php if(gotTeamPermission($userType)): ?>
+            <span id="teamContent" class="content">Team</span>
+        <?php endif; ?>
+        <?php if(gotAdminPermission($userType)): ?>
+            <div id="admContent" class="content">panneau admin</div>
+        <?php endif; ?>
         <?php if(gotAnimalPermission($userType)): ?>
             <div id="animalContent" class="content">le contenu animal</div>
-        <?php elseif(gotTestPermission($userType)): ?>
+        <?php endif; ?>
+        <?php if(gotTestPermission($userType)): ?>
             <div id="testContent" class="content">
                 <?php require("testView.php") ?>
             </div>

@@ -11,7 +11,7 @@
         http_response_code(500);
         header("Location: logout.php");
         exit();
-    } elseif (!gotTestPermission($_SESSION['userType'])) {
+    } elseif (!gotAdminPermission($_SESSION['userType'])) {
         http_response_code(401);
         header("Location: login.php");
         exit();
@@ -26,6 +26,6 @@
     <title>Dashboard</title>
 </head>
 <body>
-    coucou, c'est un exemple
+    C'est l'admin panel
 </body>
 </html>

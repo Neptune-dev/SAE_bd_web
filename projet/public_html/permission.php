@@ -5,21 +5,21 @@ function gotAdminPermission ($uType):bool {
 }
 
 function gotTeamPermission ($uType):bool {
-    if (!in_array($uType, array("ADMIN", "DIRECTEUR"))) {
+    if (!in_array($uType, array("DIRECTEUR")) || gotAdminPermission($uType)) {
         return true;
     }
     return false;
 }
 
 function gotAnimalPermission ($uType):bool {
-    if (in_array($uType, array("ADMIN", "SOIGNEUR", "VETERINAIRE"))) {
+    if (in_array($uType, array("SOIGNEUR", "VETERINAIRE")) || gotAdminPermission($uType)) {
         return true;
     }
     return false;
 }
 
 function gotTestPermission ($uType):bool {
-    if (in_array($uType, array("ADMIN", "CHEF", "TECHNICIEN", "DIRECTEUR"))) {
+    if (in_array($uType, array("CHEF", "TECHNICIEN", "DIRECTEUR")) || gotAdminPermission($uType)) {
         return true;
     }
     return false;

@@ -1,5 +1,4 @@
 <?php
-    require_once('permission.php');
     // pas de session_start()
     // => si cette page n'est pas require() par une autre, la session n'est pas ouverte
     // => si la session n'est pas ouverte, cette condition est toujours vraie (pas de $_SESSION['user'])

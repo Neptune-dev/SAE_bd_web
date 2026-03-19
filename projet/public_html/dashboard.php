@@ -32,13 +32,15 @@
 
         <label>Mes services :</label>
         <div>
+
+            <?php if(gotAdminPermission($userType)): ?>
+                <button id="admButton" class="sidebarButton">Paneau Administrateur</button>
+            <?php endif; ?>
+
             <button id="profileButton" class="sidebarButton">Mon Profil</button>
             
             <?php if(gotTeamPermission($userType)): ?>
                 <button id="teamButton" class="sidebarButton">Mon Équipe</button>
-            <?php endif; ?>
-            <?php if(gotAdminPermission($userType)): ?>
-                <button id="admButton" class="sidebarButton">Paneau Administrateur</button>
             <?php endif; ?>
             <?php if(gotAnimalPermission($userType)): ?>
                 <button id="animalButton" class="sidebarButton">Animaux</button>
@@ -60,6 +62,12 @@
             ?>
              !
         </div>
+
+        <?php if(gotAdminPermission($userType)): ?>
+            <div id="admContent" class="content">
+                <?php require("adminPanel.php") ?>
+            </div>
+        <?php endif; ?>
         
         <div id="profileContent" class="content">
             <?php require("profilePanel.php") ?>
@@ -67,11 +75,6 @@
         
         <?php if(gotTeamPermission($userType)): ?>
             <span id="teamContent" class="content">Team</span>
-        <?php endif; ?>
-        <?php if(gotAdminPermission($userType)): ?>
-            <div id="admContent" class="content">
-                <?php require("adminPanel.php") ?>
-            </div>
         <?php endif; ?>
         <?php if(gotAnimalPermission($userType)): ?>
             <div id="animalContent" class="content">le contenu animal</div>

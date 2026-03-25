@@ -146,13 +146,13 @@ CREATE TABLE intervenantprestataire(
 
 CREATE TABLE reparer(
 	id_reparation CHAR(8) PRIMARY KEY, 
-	id_enclos CHAR(8), 
+	id_enclos_reparation CHAR(8), 
 	date_reparation DATE, 
 	nature_reparation VARCHAR(255), 
 	cout_reparation NUMBER(9,2), 
 	commentaire_reparation VARCHAR(255), 
 	id_intervenant_reparation CHAR(8),
-	FOREIGN KEY (id_enclos) REFERENCES enclos(id_enclos),
+	FOREIGN KEY (id_enclos_reparation) REFERENCES enclos(id_enclos),
 	FOREIGN KEY (id_intervenant_reparation) REFERENCES intervenant(id_intervenant)
 );
 
@@ -178,11 +178,11 @@ CREATE TABLE soin(
 
 CREATE TABLE boutique(
 	id_boutique CHAR(8) PRIMARY KEY,
-	id_zone CHAR(8),
+	id_zone_boutique CHAR(8),
 	type_boutique VARCHAR(255),
 	id_equipe_boutique CHAR(8),
 	FOREIGN KEY (id_equipe_boutique) REFERENCES equipe(id_equipe),
-	FOREIGN KEY (id_zone) REFERENCES zone(id_zone),
+	FOREIGN KEY (id_zone_boutique) REFERENCES zone(id_zone),
 	CHECK (type_boutique IN ('SOUVENIR','SNACK'))
 );
 
@@ -205,7 +205,8 @@ CREATE TABLE parrainage(
 CREATE TABLE prestation(
 	id_prestation CHAR(8) PRIMARY KEY,
 	niveau_min_prestation VARCHAR(255),
-	libelle_prestation VARCHAR(255)
+	libelle_prestation VARCHAR(255),
+	CHECK (niveau_min_prestation IN ('BRONZE','ARGENT','OR'))
 );
 	
 CREATE TABLE gagner(

@@ -79,11 +79,11 @@ CREATE TABLE particularite(
 );
 
 CREATE TABLE posseder(
-	id_enclos CHAR(8), 
-	id_particularite CHAR(8), 
-	PRIMARY KEY (id_enclos,id_particularite), 
-	FOREIGN KEY (id_enclos) REFERENCES enclos(id_enclos), 
-	FOREIGN KEY (id_particularite) REFERENCES particularite(id_particularite)
+	id_enclos_posseder CHAR(8), 
+	id_particularite_posseder CHAR(8), 
+	PRIMARY KEY (id_enclos_posseder,id_particularite_posseder), 
+	FOREIGN KEY (id_enclos_posseder) REFERENCES enclos(id_enclos), 
+	FOREIGN KEY (id_particularite_posseder) REFERENCES particularite(id_particularite)
 );
 
 CREATE TABLE prestataire(
@@ -131,17 +131,17 @@ CREATE TABLE intervenant(
 );
 
 CREATE TABLE intervenantpersonnel(
-	id_intervenant CHAR(8) PRIMARY KEY,
-	id_personnel CHAR(8),
-	FOREIGN KEY (id_intervenant) REFERENCES intervenant(id_intervenant),
-	FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel)
+	id_intervenant_intervenantpersonnel CHAR(8) PRIMARY KEY,
+	id_personnel_intervenantpersonnel CHAR(8),
+	FOREIGN KEY (id_intervenant_intervenantpersonnel) REFERENCES intervenant(id_intervenant),
+	FOREIGN KEY (id_personnel_intervenantpersonnel) REFERENCES personnel(id_personnel)
 );
 
 CREATE TABLE intervenantprestataire(
-	id_intervenant CHAR(8) PRIMARY KEY,
-	id_prestataire CHAR(8),
-	FOREIGN KEY (id_intervenant) REFERENCES intervenant(id_intervenant),
-	FOREIGN KEY (id_prestataire) REFERENCES prestataire(id_prestataire)
+	id_intervenant_intervenantprestataire CHAR(8) PRIMARY KEY,
+	id_prestataire_intervenantprestataire CHAR(8),
+	FOREIGN KEY (id_intervenant_intervenantprestataire) REFERENCES intervenant(id_intervenant),
+	FOREIGN KEY (id_prestataire_intervenantprestataire) REFERENCES prestataire(id_prestataire)
 );
 
 CREATE TABLE reparer(
@@ -151,18 +151,18 @@ CREATE TABLE reparer(
 	nature_reparation VARCHAR(255), 
 	cout_reparation NUMBER(9,2), 
 	commentaire_reparation VARCHAR(255), 
-	id_intervenant CHAR(8),
+	id_intervenant_reparation CHAR(8),
 	FOREIGN KEY (id_enclos) REFERENCES enclos(id_enclos),
-	FOREIGN KEY (id_intervenant) REFERENCES intervenant(id_intervenant)
+	FOREIGN KEY (id_intervenant_reparation) REFERENCES intervenant(id_intervenant)
 );
 
 CREATE TABLE soigneur(
-	id_personnel CHAR(8) PRIMARY KEY,
+	id_personnel_soigneur CHAR(8) PRIMARY KEY,
 	specialite_espece CHAR(8),
 	id_soigneur_remplacant CHAR(8),
 	FOREIGN KEY (specialite_espece) REFERENCES espece(id_espece),
 	FOREIGN KEY (id_soigneur_remplacant) REFERENCES personnel(id_personnel),
-	FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel)
+	FOREIGN KEY (id_personnel_soigneur) REFERENCES personnel(id_personnel)
 );
 
 CREATE TABLE soin(
@@ -170,9 +170,9 @@ CREATE TABLE soin(
 	RFID_soin CHAR(8),
 	date_de_soin DATE,
 	type_soin VARCHAR(255),
-	id_personnel CHAR(8),
+	id_personnel_soin CHAR(8),
 	FOREIGN KEY (RFID_soin) REFERENCES animal(RFID_animal),
-	FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel),
+	FOREIGN KEY (id_personnel_soin) REFERENCES personnel(id_personnel),
 	CHECK (type_soin IN ('SIMPLE','COMPLEXE'))
 );
 
@@ -180,8 +180,8 @@ CREATE TABLE boutique(
 	id_boutique CHAR(8) PRIMARY KEY,
 	id_zone CHAR(8),
 	type_boutique VARCHAR(255),
-	id_equipe CHAR(8),
-	FOREIGN KEY (id_equipe) REFERENCES equipe(id_equipe),
+	id_equipe_boutique CHAR(8),
+	FOREIGN KEY (id_equipe_boutique) REFERENCES equipe(id_equipe),
 	FOREIGN KEY (id_zone) REFERENCES zone(id_zone),
 	CHECK (type_boutique IN ('SOUVENIR','SNACK'))
 );
@@ -194,10 +194,10 @@ CREATE TABLE visiteur(
 
 CREATE TABLE parrainage(
 	id_parrainage CHAR(8) PRIMARY KEY,
-	id_visiteur CHAR(8),
+	id_visiteur_parrainage CHAR(8),
 	RFID_parrainage CHAR(8),
 	niveau_parrainage VARCHAR(255),
-	FOREIGN KEY (id_visiteur) REFERENCES visiteur(id_visiteur),
+	FOREIGN KEY (id_visiteur_parrainage) REFERENCES visiteur(id_visiteur),
 	FOREIGN KEY (RFID_parrainage) REFERENCES animal(RFID_animal),
 	CHECK (niveau_parrainage IN ('BRONZE','ARGENT','OR'))
 );
@@ -209,11 +209,11 @@ CREATE TABLE prestation(
 );
 	
 CREATE TABLE gagner(
-	id_boutique CHAR(8),
+	id_boutique_ca CHAR(8),
 	date_ca DATE,
 	montant NUMBER(9,2) NOT NULL,
-	id_personnel CHAR(8),
-	PRIMARY KEY (id_boutique,date_ca),
-	FOREIGN KEY (id_boutique) REFERENCES boutique(id_boutique),
-	FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel)
+	id_personnel_ca CHAR(8),
+	PRIMARY KEY (id_boutique_ca,date_ca),
+	FOREIGN KEY (id_boutique_ca) REFERENCES boutique(id_boutique),
+	FOREIGN KEY (id_personnel_ca) REFERENCES personnel(id_personnel)
 );

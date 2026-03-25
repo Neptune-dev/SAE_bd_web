@@ -6,7 +6,8 @@ CREATE TABLE espece(
 	id_espece CHAR(8) PRIMARY KEY, 
 	nom_latin VARCHAR(255), 
 	nom_usuel VARCHAR(255),
-	menacee NUMBER(1) NOT NULL
+	menacee NUMBER(1) NOT NULL,
+	CHECK (menacee IN (0,1))
 );
 
 CREATE TABLE regime(
@@ -22,7 +23,7 @@ CREATE TABLE animal(
 	poids_animal NUMBER(3), 
 	espece_animal CHAR(8), 
 	regime_animal CHAR(8),
-	FOREIGN KEY (RFID) REFERENCES individu(RFID), 
+	FOREIGN KEY (RFID_animal) REFERENCES individu(RFID_individu), 
 	FOREIGN KEY (espece_animal) REFERENCES espece(id_espece),
 	FOREIGN KEY (regime_animal) REFERENCES regime(id_regime)
 );
@@ -32,8 +33,8 @@ CREATE TABLE filiation(
 	type_parent VARCHAR(10), 
 	id_parent CHAR(8), 
 	PRIMARY KEY (id_enfant,type_parent),
-	FOREIGN KEY (id_enfant) REFERENCES animal(RFID), 
-	FOREIGN KEY (id_parent) REFERENCES individu(RFID), 
+	FOREIGN KEY (id_enfant) REFERENCES animal(RFID_animal), 
+	FOREIGN KEY (id_parent) REFERENCES individu(RFID_individu), 
 	CHECK (type_parent IN ('PERE', 'MERE'))
 );
 
@@ -48,13 +49,13 @@ CREATE TABLE autoriser(
 );
 
 CREATE TABLE alimentation(
-	RFID CHAR(8), 
-	id_regime CHAR(8), 
+	RFID_alimentation CHAR(8), 
+	regime_alimentation CHAR(8), 
 	date_de_nour DATE, 
 	quantite NUMBER(2), 
-	PRIMARY KEY (RFID,date_de_nour), 
-	FOREIGN KEY (RFID) REFERENCES animal(RFID),
-	FOREIGN KEY (id_regime) REFERENCES regime(id_regime)
+	PRIMARY KEY (RFID_alimentation, date_de_nour), 
+	FOREIGN KEY (RFID_alimentation) REFERENCES animal(RFID_animal),
+	FOREIGN KEY (regime_alimentation) REFERENCES regime(id_regime)
 );
 
 CREATE TABLE zone(
@@ -109,11 +110,12 @@ CREATE TABLE personnel(
 	nom_personnel VARCHAR(255), 
 	prenom_personnel VARCHAR(255), 
 	date_entree_personnel DATE, 
+	date_sortie_personnel DATE,
 	salaire_personnel NUMBER(7,2), 
-	id_equipe CHAR(8),
+	id_equipe_personnel CHAR(8),
 	pwd VARCHAR(255) NOT NULL,
 	actif NUMBER(1) DEFAULT 0,
-	FOREIGN KEY (id_equipe) REFERENCES equipe(id_equipe),
+	FOREIGN KEY (id_equipe_personnel) REFERENCES equipe(id_equipe),
 	FOREIGN KEY (type_personnel) REFERENCES type_personnel(id_type)
 );
 
@@ -165,11 +167,11 @@ CREATE TABLE soigneur(
 
 CREATE TABLE soin(
 	id_soin CHAR(8) PRIMARY KEY,
-	RFID CHAR(8),
+	RFID_soin CHAR(8),
 	date_de_soin DATE,
 	type_soin VARCHAR(255),
 	id_personnel CHAR(8),
-	FOREIGN KEY (RFID) REFERENCES animal(RFID),
+	FOREIGN KEY (RFID_soin) REFERENCES animal(RFID_animal),
 	FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel),
 	CHECK (type_soin IN ('SIMPLE','COMPLEXE'))
 );
@@ -193,10 +195,10 @@ CREATE TABLE visiteur(
 CREATE TABLE parrainage(
 	id_parrainage CHAR(8) PRIMARY KEY,
 	id_visiteur CHAR(8),
-	RFID CHAR(8),
+	RFID_parrainage CHAR(8),
 	niveau_parrainage VARCHAR(255),
 	FOREIGN KEY (id_visiteur) REFERENCES visiteur(id_visiteur),
-	FOREIGN KEY (RFID) REFERENCES animal(RFID),
+	FOREIGN KEY (RFID_parrainage) REFERENCES animal(RFID_animal),
 	CHECK (niveau_parrainage IN ('BRONZE','ARGENT','OR'))
 );
 

@@ -1,5 +1,5 @@
 CREATE TABLE individu(
-	RFID CHAR(8) PRIMARY KEY
+	RFID_individu CHAR(8) PRIMARY KEY
 );
 
 CREATE TABLE espece(
@@ -15,7 +15,7 @@ CREATE TABLE regime(
 );
 
 CREATE TABLE animal(
-	RFID CHAR(8) PRIMARY KEY, 
+	RFID_animal CHAR(8) PRIMARY KEY, 
 	nom_animal VARCHAR(255), 
 	prenom_animal VARCHAR(255), 
 	date_de_naissance_animal DATE, 

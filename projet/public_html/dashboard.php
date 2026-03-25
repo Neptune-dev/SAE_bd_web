@@ -17,30 +17,36 @@
 </head>
 <body>
 
-    <div id="sidebar">
-        <h1><?= strtoupper($user["NOM_PERSONNEL"]), " ", $user["PRENOM_PERSONNEL"]?></h1>
-        <h2>N° de Personnel : <?= $user["ID_PERSONNEL"] ?></h2>
+    <div id="container">
+        <div id="sidebar">
+            <h1><?= strtoupper($user["NOM_PERSONNEL"]), " ", $user["PRENOM_PERSONNEL"]?></h1>
+            <h2>N° de Personnel : <?= $user["ID_PERSONNEL"] ?></h2>
 
-        <label>Mes services :</label>
-        <div>
-            <button id="profilButton" class="sidebarButton">Mon Profil</button>
-            <button id="teamButton" class="sidebarButton">Mon Équipe</button>
-            <?php
-                if ($user['TYPE_PERSONNEL']==="TPPE0003"){
-                    print("<button id='animalButton' class='sidebarButton>Ajouter un animal</button>");
-                }
-            ?>
-            <button onclick="location.href='/public_html/logout.php'">Se déconnecter</button>
+            <label>Mes services :</label>
+            <div id="sidebarButtons">
+                <div>
+                    <button id="profilButton" class="sidebarButton">Mon Profil</button>
+                    <button id="teamButton" class="sidebarButton">Mon Équipe</button>
+                    <?php
+                        if ($user['TYPE_PERSONNEL']==="TPPE0003"){
+                            print("<button id='animalButton' class='sidebarButton>Ajouter un animal</button>");
+                        }
+                    ?>
+                </div>
+                <div>
+                    <button id="logoutBtn" onclick="location.href='/logout.php'">Se déconnecter</button>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div id="contentContainer">
-        <div class="content" style="visibility:visible;">Bienvenue, <?= $user["PRENOM_PERSONNEL"]?> !</div>
-        <span id="profilContent" class="content">Profil</span>
-        <span id="teamContent" class="content">Team</span>
-        <div id="animalContent" class="content">le contenu animal</div>
-        <div id="testContent" class="content">
-            <?php require("testView.php") ?>
+        <div id="contentContainer">
+            <div class="content" style="visibility:visible;">Bienvenue, <?= $user["PRENOM_PERSONNEL"]?> !</div>
+            <span id="profilContent" class="content">Profil</span>
+            <span id="teamContent" class="content">Team</span>
+            <div id="animalContent" class="content">le contenu animal</div>
+            <div id="testContent" class="content">
+                <?php require("testView.php") ?>
+            </div>
         </div>
     </div>
 

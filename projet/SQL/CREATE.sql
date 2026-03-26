@@ -20,7 +20,7 @@ CREATE TABLE animal(
 	nom_animal VARCHAR(255), 
 	prenom_animal VARCHAR(255), 
 	date_de_naissance_animal DATE, 
-	poids_animal NUMBER(3), 
+	poids_animal NUMBER(3,3), 
 	espece_animal CHAR(8), 
 	regime_animal CHAR(8),
 	FOREIGN KEY (RFID_animal) REFERENCES individu(RFID_individu), 
@@ -210,11 +210,11 @@ CREATE TABLE prestation(
 );
 	
 CREATE TABLE gagner(
+	id_ca CHAR(8) PRIMARY KEY,
 	id_boutique_ca CHAR(8),
 	date_ca DATE,
 	montant NUMBER(9,2) NOT NULL,
 	id_personnel_ca CHAR(8),
-	PRIMARY KEY (id_boutique_ca,date_ca),
 	FOREIGN KEY (id_boutique_ca) REFERENCES boutique(id_boutique),
 	FOREIGN KEY (id_personnel_ca) REFERENCES personnel(id_personnel)
 );

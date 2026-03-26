@@ -210,11 +210,11 @@ CREATE TABLE prestation(
 );
 	
 CREATE TABLE gagner(
-	id_ca CHAR(8) PRIMARY KEY,
 	id_boutique_ca CHAR(8),
 	date_ca DATE,
 	montant NUMBER(9,2) NOT NULL,
 	id_personnel_ca CHAR(8),
+	PRIMARY KEY (id_boutique_ca,date_ca)
 	FOREIGN KEY (id_boutique_ca) REFERENCES boutique(id_boutique),
 	FOREIGN KEY (id_personnel_ca) REFERENCES personnel(id_personnel)
 );

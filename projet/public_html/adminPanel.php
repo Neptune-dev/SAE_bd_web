@@ -22,9 +22,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="page.css">
+    <title>Admin panel</title>
 </head>
 <body>
-    C'est l'admin panel
+    <div id="container">
+        <div id="sidebar">
+            <?php require('navbar.php'); ?>
+        </div>
+        <div id="content">
+            <h1>
+                C'est l'admin panel
+            </h1>
+        </div>
+    </div>
 </body>
 </html>

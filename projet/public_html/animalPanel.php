@@ -68,11 +68,18 @@
                 if (isset($_GET['cherche_animal'])){
                     $motcle = isset($_GET['motcle']) ? $_GET['motcle'] : '';
                     $sql = "SELECT animal.RFID_animal, animal.nom_animal, animal.prenom_animal, espece.nom_latin, espece.nom_usuel FROM animal LEFT JOIN espece ON animal.espece_animal=espece.id_espece WHERE 1";
+                    
+                    $params = [];
+                    
                     if (!empty($motcle)){
-                        $sql .= " AND (animal.RFID_animal LIKE ':motcle' OR animal.nom_animal LIKE ':motcle' OR animal.prenom_animal LIKE ':motcle' OR espece.nom_latin LIKE ':motcle' OR espece.nom_usuel LIKE ':motcle')";
+                        $sql .= " AND (animal.RFID_animal LIKE :motcle OR animal.nom_animal LIKE :motcle OR animal.prenom_animal LIKE :motcle OR espece.nom_latin LIKE :motcle OR espece.nom_usuel LIKE :motcle)";
+                        $params[':motcle']='%'.$motcle.'%';
                     }
-                    $test='%'.$motcle.'%';
-                    $result=db_all($sql,[':motcle' => $test]);
+                    $result=db_all($sql,$params);
+                    foreach ($result as $tb){
+                        echo "<p><strong>{$tb['NOM_ANIMAL']} - {$tb['PRENOM_ANIMAL']}</strong> — {$tb['RFID_ANIMAL']} (Espèce : {$tb['NOM_USUEL']} - {$tb['NOM_LATIN']})</p>";
+                        echo "<div class='menu' style='align-items: left; justify-content: left; background-color: #f4f4f9;'><a href='supprimer_animal.php?RFID_animal={$tb['RFID_ANIMAL']}' style='text-decoration: none; color: black;'>Supprimer l'animal</a><BR><a href='modifier_animal.php?RFID_animal={$tb['RFID_ANIMAL']}' style='text-decoration: none; color: black;'>Modifier l'animal</a></div>";
+                    }
                 }
             ?>
         </div

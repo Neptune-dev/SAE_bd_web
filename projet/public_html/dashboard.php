@@ -71,7 +71,7 @@
         
         <div id="profileContent" class="content">
             <?php require("profilePanel.php") ?>
-        </div>
+        </div>     
         
         <?php if(gotTeamPermission($userType)): ?>
             <span id="teamContent" class="content">Team</span>

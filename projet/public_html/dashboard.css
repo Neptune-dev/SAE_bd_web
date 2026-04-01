@@ -46,6 +46,7 @@ body {
     border-radius: 35px;
     border-color: #333;
     border-style: solid;
+    overflow: hidden;
 }
 
 .content {

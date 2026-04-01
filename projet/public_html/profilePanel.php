@@ -2,6 +2,7 @@
     // pas de session_start()
     // => si cette page n'est pas require() par une autre, la session n'est pas ouverte
     // => si la session n'est pas ouverte, cette condition est toujours vraie (pas de $_SESSION['user'])
+    session_start();
     if (!isset($_SESSION['user'])) {
         http_response_code(401);
         header("Location: login.php");
@@ -16,7 +17,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="dashboard.css">
     <style>
-        #profile {
+        .flexed {
             display: flex;
         }
 
@@ -36,7 +37,7 @@
 <body>
     <h1>Mon profil</h1>
 
-    <div id="profile">
+    <div class="flexed">
         <div id="profileDisplay">
             <span id="prenom"><?= $user['PRENOM_PERSONNEL'] ?></span>
             <span id="nom"><?= $user['NOM_PERSONNEL'] ?></span>
@@ -44,16 +45,19 @@
         </div>
 
         <div id="updateProfileForm">
-            <form action="#" method="POST">
+            <form action="" method="POST">
                 <label for="prenom">Prénom</label>
                 <input type="text" value="<?= $user['PRENOM_PERSONNEL'] ?>" name="fprenom">
                 <input type="text" value="<?= $user['NOM_PERSONNEL'] ?>" name="fnom">
                 <button type="submit">Valider les changements</button>
+                <button id="cancelUpdateBtn">Annuler</button>
             </form>
         </div>
     </div>
 
-    <div>
+    <br><br>
+
+    <div class="flexed">
         <a href="inscription.php"><button>Changer de mot de passe</Button></a>
     </div>
 

@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="login" style="max-width: ;">
-        <h2>Modification du compte d'un animal</h2>
+        <h2>Modification d'un animal</h2>
         <?php
         session_start();
         require_once('db.php');

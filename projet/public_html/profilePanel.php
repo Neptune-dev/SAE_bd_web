@@ -14,7 +14,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="dashboard.css">
-    <title>Dashboard</title>
 </head>
 <body>
     Voici votre Profil

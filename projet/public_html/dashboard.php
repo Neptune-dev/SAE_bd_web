@@ -77,7 +77,9 @@
             <span id="teamContent" class="content">Team</span>
         <?php endif; ?>
         <?php if(gotAnimalPermission($userType)): ?>
-            <div id="animalContent" class="content">le contenu animal</div>
+            <div id="animalContent" class="content">
+                <?php require("animalPanel.php") ?>
+            </div>
         <?php endif; ?>
         <?php if(gotTestPermission($userType)): ?>
             <div id="testContent" class="content">

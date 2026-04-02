@@ -1,8 +1,8 @@
 <?php
     require_once('permission.php');
-    // pas de session_start()
-    // => si cette page n'est pas require() par une autre, la session n'est pas ouverte
-    // => si la session n'est pas ouverte, cette condition est toujours vraie (pas de $_SESSION['user'])
+    
+    // vérification de la session
+    session_start();
     if (!isset($_SESSION['user'])) {
         http_response_code(401);
         header("Location: login.php");

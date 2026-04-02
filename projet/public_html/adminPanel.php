@@ -1,8 +1,8 @@
 <?php
     require_once('permission.php');
-    // pas de session_start()
-    // => si cette page n'est pas require() par une autre, la session n'est pas ouverte
-    // => si la session n'est pas ouverte, cette condition est toujours vraie (pas de $_SESSION['user'])
+    
+    // vérification de la session
+    session_start();
     if (!isset($_SESSION['user'])) {
         http_response_code(401);
         header("Location: login.php");
@@ -22,9 +22,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="page.css">
+    <title>Admin panel</title>
 </head>
 <body>
-    C'est l'admin panel
+    <div id="container">
+        <div id="sidebar">
+            <?php require('navbar.php'); ?>
+        </div>
+        <div id="content">
+            <h1>
+                C'est l'admin panel
+            </h1>
+        </div>
+    </div>
 </body>
 </html>

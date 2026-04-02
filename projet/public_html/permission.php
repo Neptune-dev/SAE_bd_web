@@ -17,12 +17,4 @@ function gotAnimalPermission ($uType):bool {
     }
     return false;
 }
-
-function gotTestPermission ($uType):bool {
-    if (in_array($uType, array("CHEF", "TECHNICIEN", "DIRECTEUR")) || gotAdminPermission($uType)) {
-        return true;
-    }
-    return false;
-}
-
 ?>

@@ -21,73 +21,23 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="page.css">
     <title>Dashboard</title>
 </head>
 <body>
-
-    <div id="sidebar">
-        <h1><?= strtoupper($user["NOM_PERSONNEL"]), " ", $user["PRENOM_PERSONNEL"]?></h1>
-        <h2>N° de Personnel : <?= $user["ID_PERSONNEL"] ?></h2>
-
-        <label>Mes services :</label>
-        <div>
-
-            <?php if(gotAdminPermission($userType)): ?>
-                <button id="admButton" class="sidebarButton">Paneau Administrateur</button>
-            <?php endif; ?>
-
-            <button id="profileButton" class="sidebarButton">Mon Profil</button>
-            
-            <?php if(gotTeamPermission($userType)): ?>
-                <button id="teamButton" class="sidebarButton">Mon Équipe</button>
-            <?php endif; ?>
-            <?php if(gotAnimalPermission($userType)): ?>
-                <button id="animalButton" class="sidebarButton">Animaux</button>
-            <?php endif; ?>
-            <?php if(gotTestPermission($userType)): ?>
-                <button id="testButton" class="sidebarButton">Test</button>
-            <?php endif; ?>
-            
-            
-            <button id="logoutBtn" onclick="location.href='logout.php'">Se déconnecter</button>
+    <div id="container">
+        <div id="sidebar">
+            <?php require('navbar.php'); ?>
+        </div>
+        <div id="content">
+            <h1>
+                Bienvenue,
+                <?php
+                    echo ($user["PRENOM_PERSONNEL"] != "") ? $user["PRENOM_PERSONNEL"] : $user["ID_PERSONNEL"];
+                ?>
+                !
+            </h1>
         </div>
     </div>
-
-    <div id="contentContainer">
-        <div class="content" style="visibility:visible;">
-            Bienvenue,
-            <?php
-                echo ($user["PRENOM_PERSONNEL"] != "") ? $user["PRENOM_PERSONNEL"] : $user["ID_PERSONNEL"];
-            ?>
-             !
-        </div>
-
-        <?php if(gotAdminPermission($userType)): ?>
-            <div id="admContent" class="content">
-                <?php require("adminPanel.php") ?>
-            </div>
-        <?php endif; ?>
-        
-        <div id="profileContent" class="content">
-            <?php require("profilePanel.php") ?>
-        </div>
-        
-        <?php if(gotTeamPermission($userType)): ?>
-            <span id="teamContent" class="content">Team</span>
-        <?php endif; ?>
-        <?php if(gotAnimalPermission($userType)): ?>
-            <div id="animalContent" class="content">
-                <?php require("animalPanel.php") ?>
-            </div>
-        <?php endif; ?>
-        <?php if(gotTestPermission($userType)): ?>
-            <div id="testContent" class="content">
-                <?php require("testView.php") ?>
-            </div>
-        <?php endif; ?>
-    </div>
-
-    <script src="dashboard.js"></script>
 </body>
 </html>

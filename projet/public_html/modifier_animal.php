@@ -12,7 +12,7 @@
         require_once('db.php');
         require_once('permission.php');
         $id_animal=$_GET['RFID_animal'];
-        echo "<form action='#' method=''><label for='id'>Identifiant</label>";
+        echo "<form action='#' method='POST'><label for='id'>Identifiant</label>";
         $sql = "SELECT * FROM animal WHERE RFID_animal=:RFID";
         $result=db_one($sql,[':RFID'=>$id_animal]);
         if ($result) {
@@ -21,6 +21,8 @@
             echo "<label for='animal'>Nom de l'animal</label><input type='text' id='nom_animal' name='nom_animal' required placeholder='Entrez le nom de l'animal' value='{$result['NOM_ANIMAL']}'>";
 
             echo "<label for='animal'>Prénom de l'animal</label><input type='text' name='prenom_animal' required placeholder='Entrez le prénon de l'animal' value='{$result['PRENOM_ANIMAL']}'>";
+            
+            echo "<label>Poids de l'animal</label><input type='text' name='poids_animal' required placeholder='Entrez le poids de l'animal' value='{$result['POIDS_ANIMAL']}'>";
 
             echo "<label for='animal'>Mot de passe</label><input type='password' id='mot_de_passe' name='mot_de_passe' required placeholder='Saisissez votre mot de passe'>";
 
@@ -75,7 +77,34 @@
                 }
             echo "</select><br>";
         }
-          echo "<button type='submit'>Modifier</button></form>";
+          echo "<button name='modifier' type='submit'>Modifier</button></form>";
+          
+          if (isset($_POST['modifier'])){
+              $user = $_SESSION['user'];
+              if (isset($user)&&(($user['TYPE_PERSONNEL']=='TPPE0003')||($user['TYPE_PERSONNEL']=='TPPE0004'))){
+                  $sql="UPDATE animal SET nom_animal=:nom, prenom_animal=:prenom, espece_animal=:espece, date_de_naissance_animal=TO_DATE(:date_naissance,'YYYY-MM-DD'), regime_animal=:regime, poids_animal=:poids WHERE RFID_animal=:rfid";
+                  if (password_verify($_POST['mot_de_passe'],$user['PWD'])){
+                      $date_naissance = $_POST['annee'] . '-' . $_POST['mois'] . '-' . $_POST['jour'];
+                      $params=[
+                        ':prenom'=>$_POST['prenom_animal'],
+                        ':nom'=>$_POST['nom_animal'],
+                        ':rfid'=>$id_animal,
+                        ':regime'=>$_POST['id_regime'],
+                        ':espece'=>$_POST['id_espece'],
+                        ':poids'=>$_POST['poids_animal'],
+                        ':date_naissance'=>$date_naissance 
+                      ];
+                      db_exec($sql,$params);
+                      echo "<script>
+                        alert('Modification réussie');
+                        window.location.href = 'animalPanel.php';
+                    </script>";
+                    exit();
+                  } else {
+                      echo "<br><p>mot de passe incorrect</p>";
+                  }
+              }
+          }
         ?>
     </div>
 </body>

@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 
 // Vérifie que l'utilisateur est connecté
@@ -17,12 +20,13 @@ require_once('db.php');
 
 // Récupération et nettoyage simple
 $rfid = $_POST['RFID'];
-$nom = trim($_POST['nom_animal'] ?? '');
-$prenom = trim($_POST['prenom_animal'] ?? '');
-$espece = trim($_POST['espece_animal'] ?? '');
+$nom = $_POST['nom_animal'];
+$prenom = $_POST['prenom_animal'];
+$espece = $_POST['espece_animal'];
+$regime = $_POST['regime_animal'];
 
 // Vérification des champs
-if ($rfid === '' || $nom === '' || $prenom === '' || $espece === '') {
+if ($rfid === '' || $nom === '' || $prenom === '' || $espece === '' || $_POST['jour'] === '' || $_POST['mois'] === '' || $_POST['annee'] === '') {
     die("Tous les champs sont obligatoires.");
 }
 
@@ -31,14 +35,15 @@ $sql="INSERT INTO individu(RFID_individu) VALUES (:rfid)";
 db_exec($sql,[':rfid'=>$rfid]);
 
 // Requête d'insertion
-$sql = "INSERT INTO animal (RFID_animal, nom_animal, prenom_animal, espece_animal, regime_animal) VALUES (:rfid, :nom, :prenom, :espece, :regime)";
-
+$sql = "INSERT INTO animal (RFID_animal, nom_animal, prenom_animal, espece_animal, regime_animal, date_de_naissance_animal) VALUES (:rfid, :nom, :prenom, :espece, :regime, TO_DATE(:date_naissance,'YYYY-MM-DD'))";
+$date_naissance=$_POST['annee'] . '-' . $_POST['mois'] . '-' . $_POST['jour'];
 $params = [
     ':rfid' => $rfid,
     ':nom' => $nom,
     ':prenom' => $prenom,
     ':espece' => $espece,
-    ':regime' => 'REG00001'
+    ':regime' => $regime,
+    ':date_naissance' => $date_naissance
 ];
 
 // Exécution

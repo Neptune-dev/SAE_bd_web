@@ -13,6 +13,8 @@
 		$params=[];
 		$params[':rfid']=$_GET['RFID_animal'];
 		db_exec($sql,$params);
+		$sql="DELETE FROM individu WHERE RFID_individu=:rfid";
+		db_exec($sql,$params);
 	}
 	header("Location: dashboard.php");
 	exit();

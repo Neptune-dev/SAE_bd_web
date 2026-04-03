@@ -2,7 +2,7 @@
     <head>
         <title>Changer le mots de passe</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="login" style="max-width: ;">

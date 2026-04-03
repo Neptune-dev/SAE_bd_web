@@ -6,6 +6,7 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: var(--bg);
+    color: var(--titles);
     margin: 0;
     padding: 0;
     display: flex;

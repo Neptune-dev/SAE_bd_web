@@ -71,7 +71,6 @@ function db_exec(string $sql, array $params = []): bool {
     $ok = oci_execute($stid, OCI_COMMIT_ON_SUCCESS);
     if (!$ok) {
         $e = oci_error($stid);
-        // en SAE tu peux die; ou retourner false
         die("Execute error: " . htmlentities($e['message'], ENT_QUOTES));
     }
 

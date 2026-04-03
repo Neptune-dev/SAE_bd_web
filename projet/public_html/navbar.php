@@ -47,6 +47,9 @@
                 <li>
                     <a href="animalPanel.php">Animaux</a>
                 </li>
+                <li>
+                    <a href="soinPanel.php">Soins</a>
+                </li>
             <?php endif; ?>
         
             <li>

@@ -1,6 +1,8 @@
 :root {
   --bg: #333;
   --titles: #f4f4f9;
+  --btn-color: #4CAF50;
+  --btn-hover: #45a049;
 }
 
 body {
@@ -23,7 +25,7 @@ body {
 }
 
 #sidebar {
-
+    width: 200px;
 }
 
 #content {
@@ -55,10 +57,10 @@ button {
     width: 100%;
     padding: 14px;
     margin: 3px;
-    background-color: #4CAF50;
+    background-color: var(--btn-color);
     color: white;
     border-style: solid;
-    border-color: #4CAF50;
+    border-color: var(--btn-color);
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
@@ -66,8 +68,8 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
-    border-color: #45a049;
+    background-color: var(--btn-hover);
+    border-color: var(--btn-hover);
 }
 
 button.selected {

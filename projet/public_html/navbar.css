@@ -4,7 +4,7 @@
     --nav-color-hover: white;
     --btn-bg: #f1f1f1;
     --btn-bg-hover: #555555;
-    --active-bg: #6e966e;
+    --active-bg: #4CAF50;
     --active: white;
 }
 
@@ -15,6 +15,7 @@ ul {
     width: 200px;
     background-color: var(--nav-bg);
     height: 100vh;
+    position: fixed;
 }
 
 li a {

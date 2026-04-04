@@ -30,7 +30,7 @@
         <ul>
             <?php if(gotAdminPermission($userType)): ?>
                 <li>
-                    <a id="navAdmin" href="adminPanel.php">Paneau Administrateur</a>
+                    <a id="navAdmin" href="adminPanel.php">Panneau Administrateur</a>
                 </li>
             <?php endif; ?>
 

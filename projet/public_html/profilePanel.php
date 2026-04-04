@@ -101,7 +101,7 @@
                         <input type="password" name="fpwd" required>
                         <button type="submit">Valider les changements</button>
                     </form>
-                    <a href="#"><button id="cancelUpdateBtn">Annuler</button></a>
+                    <a href=""><button id="cancelUpdateBtn">Annuler</button></a>
                 </div>
             </div>
 

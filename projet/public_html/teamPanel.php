@@ -17,6 +17,22 @@
         header("Location: login.php");
         exit();
     }
+
+    $user = $_SESSION["user"];
+    $teamId = $user["ID_EQUIPE_PERSONNEL"];
+
+    $sql = "SELECT * FROM personnel WHERE id_equipe_personnel = :idEq";
+    $params = [":idEq" => $teamId];
+    $teamMembers = db_all($sql, $params);
+
+    $sql = "SELECT * FROM personnel p INNER JOIN equipe e ON p.id_personnel = e.id_chef_equipe WHERE id_equipe_personnel = :idEq";
+    $params = [":idEq" => $teamId];
+    $teamLeader = db_one($sql, $params);
+    if (!$teamLeader) {
+        http_response_code(500);
+        header("Location: dashboard.php");
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -32,8 +48,27 @@
             <?php require('navbar.php'); ?>
         </div>
         <div id="content">
-            <div id="animalContent" class="content">
-                
+            <div>
+                <label>Mon Équipe : <?= $teamId ?></label>
+                <label>Chef d'Équipe : <?= $teamLeader["PRENOM_PERSONNEL"]." ".strtoupper($teamLeader["NOM_PERSONNEL"]) ?></label>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                    </tr>
+                    <?php
+                        foreach ($teamMembers as $tm) {
+                            echo "<tr>"
+                                ."<td>".$tm["ID_PERSONNEL"]."</td>"
+                                ."<td>".$tm["NOM_PERSONNEL"]."</td>"
+                                ."<td>".$tm["PRENOM_PERSONNEL"]."</td>"
+                                ."</tr>";
+                        }
+                    ?>
+                </table>
             </div>
         </div>
     </div>

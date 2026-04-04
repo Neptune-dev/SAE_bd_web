@@ -31,7 +31,7 @@
             <?php require('navbar.php'); ?>
         </div>
         <div id="content">
-            <table border="1">
+            <table>
                 <tr>
                     <th>Date du soin</th>
                     <th>Type du soin</th>

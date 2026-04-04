@@ -34,6 +34,12 @@
                 </li>
             <?php endif; ?>
 
+            <?php if(gotDirectorPermission($userType)): ?>
+                <li>
+                    <a id="navDirector" href="directorPanel.php">Gestion</a>
+                </li>
+            <?php endif; ?>
+
             <li>
                 <a id="navProfile" href="profilePanel.php">Mon Profil</a>
             </li>

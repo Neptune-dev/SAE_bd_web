@@ -4,6 +4,13 @@ function gotAdminPermission ($uType):bool {
     return ($uType == "ADMIN") ? true : false;
 }
 
+function gotDirectorPermission ($uType):bool {
+    if (in_array($uType, array("DIRECTEUR")) || gotAdminPermission($uType)) {
+        return true;
+    }
+    return false;
+}
+
 function gotTeamPermission ($uType):bool {
     if (!in_array($uType, array("DIRECTEUR")) || gotAdminPermission($uType)) {
         return true;

@@ -49,7 +49,8 @@
         </div>
         <div id="content">
             <div>
-                <label>Mon Équipe : <?= $teamId ?></label>
+                <h1>Mon Équipe</h1>
+                <label>Numéro d'Équipe : <?= $teamId ?></label>
                 <label>Chef d'Équipe : <?= $teamLeader["PRENOM_PERSONNEL"]." ".strtoupper($teamLeader["NOM_PERSONNEL"]) ?></label>
             </div>
             <div>
@@ -64,8 +65,9 @@
                             echo "<tr>"
                                 ."<td>".$tm["ID_PERSONNEL"]."</td>"
                                 ."<td>".$tm["NOM_PERSONNEL"]."</td>"
-                                ."<td>".$tm["PRENOM_PERSONNEL"]."</td>"
-                                ."</tr>";
+                                ."<td>".$tm["PRENOM_PERSONNEL"]."</td>";
+
+                            echo "</tr>";
                         }
                     ?>
                 </table>

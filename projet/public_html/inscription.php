@@ -60,7 +60,7 @@
             <input type="password" id="" name="mdp2" required placeholder="Retapez votre nouveau mots de passe">
 
             <br>
-            <button type="submit">S'inscrire</button>
+            <button type="submit">Mettre à jour le mot de passe</button>
         </form>
     </div>
 </body>

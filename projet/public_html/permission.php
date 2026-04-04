@@ -24,4 +24,10 @@ function gotAnimalPermission ($uType):bool {
     }
     return false;
 }
+
+function gotChefPermission ($uType):bool {
+    if (in_array($uType, array("CHEF")) || gotAdminPermission($uType)) {
+        return true;
+    }
+}
 ?>

@@ -57,6 +57,11 @@
                     <a id="navSoin" href="soinPanel.php">Soins</a>
                 </li>
             <?php endif; ?>
+            <?php if (gotChefPermission($userType)): ?>
+                <li>
+                    <a id="navBoutique" href="boutiquePanel.php">Boutique</a>
+                </li>
+            <?php endif; ?>
         
             <li>
                 <a href="logout.php">Se déconnecter</a>

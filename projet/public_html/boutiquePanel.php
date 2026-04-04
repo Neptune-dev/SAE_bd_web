@@ -8,6 +8,17 @@
     }
     $user = $_SESSION["user"];
     require_once("db.php");
+
+    if (isset($_POST['ca_envoie'])) {
+        $sql="INSERT INTO gagner VALUES (:id_boutique,TO_DATE(:date_ca,'DD-MM-YYYY'),:montant,:id_pers)";
+        $params=[
+            ":id_boutique"=>$_POST['id_boutique'],
+            ":date_ca"=>date('d-m-Y'),
+            ":montant"=>$_POST['CA'],
+            ":id_pers"=>$user['ID_PERSONNEL']
+        ];
+        db_exec($sql,$params);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +48,14 @@
                 }
                 echo "</table>";
             ?>
+
+            <form action="" method="POST">
+                <?php
+                    $id_equipe=$user['ID_EQUIPE_PERSONNEL'];
+                    $sql="SELECT gagner.id_boutique_ca FROM gagner LEFT JOIN boutique ON gagner.id_boutique_ca=boutique.id_boutique LEFT JOIN equipe ON boutique.id_equipe_boutique=equipe.id_equipe WHERE id_equipe_boutique=:id_equipe";
+                    $res=db_one($sql,[":id_equipe"=>$id_equipe]);
+                    echo "<input type='hidden' value='{$res['ID_BOUTIQUE_CA']}' name='id_boutique'><input type='text' name='CA'><button type='submit' name='ca_envoie'>Envoyer</button>";
+                ?>
         </div>
     </div>
 </body>

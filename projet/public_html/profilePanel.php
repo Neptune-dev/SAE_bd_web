@@ -111,7 +111,22 @@
                 <a href="inscription.php"><button>Changer de mot de passe</Button></a>
             </div>
 
-            <script src="profilePanel.js"></script>
+            <script>
+                let active = document.getElementById("navProfile");
+                active.classList.toggle('active');
+            </script>
+
+            <script>
+                let updateBtn = document.getElementById("updateBtn");
+
+                let profileDisplay = document.getElementById("profileDisplay");
+                let updateProfileForm = document.getElementById("updateProfileForm");
+
+                updateBtn.addEventListener("click", () => { 
+                    profileDisplay.style.display = "none";
+                    updateProfileForm.style.display = "flex";
+                });
+            </script>
         </div>
     </div>
 </body>

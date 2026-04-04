@@ -140,9 +140,11 @@
                 ?>
             </div>
         </div>
-        <div>
-            
-        </div>
     </div>
+
+    <script>
+        let active = document.getElementById("navAnimal");
+        active.classList.toggle('active');
+    </script>
 </body>
 </html>

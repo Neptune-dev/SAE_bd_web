@@ -55,5 +55,10 @@
                 }
             ?>
         </div>
+
+        <script>
+            let active = document.getElementById("navSoin");
+            active.classList.toggle('active');
+        </script>
 </body>
 </html>

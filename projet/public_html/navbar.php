@@ -30,25 +30,25 @@
         <ul>
             <?php if(gotAdminPermission($userType)): ?>
                 <li>
-                    <a href="adminPanel.php">Paneau Administrateur</a>
+                    <a id="navAdmin" href="adminPanel.php">Paneau Administrateur</a>
                 </li>
             <?php endif; ?>
 
             <li>
-                <a href="profilePanel.php">Mon Profil</a>
+                <a id="navProfile" href="profilePanel.php">Mon Profil</a>
             </li>
             
             <?php if(gotTeamPermission($userType)): ?>
                 <li>
-                    <a href="teamPanel.php">Mon Équipe</a>
+                    <a id="navTeam" href="teamPanel.php">Mon Équipe</a>
                 </li>
             <?php endif; ?>
             <?php if(gotAnimalPermission($userType)): ?>
                 <li>
-                    <a href="animalPanel.php">Animaux</a>
+                    <a id="navAnimal" href="animalPanel.php">Animaux</a>
                 </li>
                 <li>
-                    <a href="soinPanel.php">Soins</a>
+                    <a id="navSoin" href="soinPanel.php">Soins</a>
                 </li>
             <?php endif; ?>
         

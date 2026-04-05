@@ -27,6 +27,10 @@
                 $newTeamLeader = $_POST["fteamLeader"];
                 $newTeamZone = $_POST["fteamZone"];
 
+                if ($newTeamZone == 'NULL') {
+                    $newTeamZone = null;
+                } 
+
                 $sql = "UPDATE equipe SET id_chef_equipe=:newTeamLeader, zone_equipe=:newTeamZone WHERE id_equipe=:tid";
                 $params = [":newTeamLeader" => $newTeamLeader, ":newTeamZone" => $newTeamZone, ":tid" => $tid];
                 $stmt = db_exec($sql, $params);
@@ -35,6 +39,80 @@
                     header("Location: dashboard.php");
                     exit();
                 }
+
+                header("Location: directorPanel.php#teams");
+                exit();
+            } elseif ($_GET["modify"] == 'addTeam') {
+                //selection du nouvel id
+                $sql = "SELECT Max(id_equipe) as max FROM equipe";
+                $params = [];
+                $maxID = db_one($sql, $params);
+                if (!$maxID) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
+                if (!preg_match('/^([A-Za-z_]+)(\d+)$/', $maxID["MAX"], $m)) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
+                $prefix = $m[1];
+                $number = $m[2];
+
+                // Incrémente le nombre en conservant le remplissage par zéros (longueur d'origine)
+                $length = strlen($number);
+                $newNumber = str_pad((string) (intval($number) + 1), $length, '0', STR_PAD_LEFT);
+
+                $newID = $prefix . $newNumber;
+
+                //insertion
+                $sql = "INSERT INTO equipe(id_equipe, id_chef_equipe) VALUES(:newID, :chefID)";
+                $params = [":newID" => $newID, ":chefID" => $user["ID_PERSONNEL"]];
+                $stmt = db_exec($sql, $params);
+                if (!$stmt) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
+                header("Location: directorPanel.php#teams");
+                exit();
+            } elseif ($_GET["modify"] == 'deleteTeam') {
+                $tid = $_POST["ftid"];
+
+                // maj des personnels
+                $sql = "UPDATE personnel SET id_equipe_personnel=NULL WHERE id_equipe_personnel=:tid";
+                $params = [":tid" => $tid];
+                $stmt = db_exec($sql, $params);
+                if (!$stmt) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
+                // maj des boutiques
+                $sql = "UPDATE boutique SET id_equipe_boutique=NULL WHERE id_equipe_boutique=:tid";
+                $params = [":tid" => $tid];
+                $stmt = db_exec($sql, $params);
+                if (!$stmt) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
+                // supression
+                $sql = "DELETE FROM equipe WHERE id_equipe=:tid";
+                $params = [":tid" => $tid];
+                $stmt = db_exec($sql, $params);
+                if (!$stmt) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
                 header("Location: directorPanel.php#teams");
                 exit();
             } elseif ($_GET["modify"] == 'deletezone') {
@@ -98,6 +176,10 @@
                 $type = $_POST["ftype"];
                 $salary = $_POST["fsalary"];
 
+                if ($team == 'NULL') {
+                    $team = null;
+                }
+
                 $sql = "UPDATE personnel SET id_equipe_personnel=:team, nom_personnel=:name, prenom_personnel=:surname, type_personnel=:type, salaire_personnel=:salary WHERE id_personnel=:pid";
                 $params = [":team" => $team, ":name" => $name, ":surname" => $surname, ":type" => $type, ":salary" => $salary, ":pid" => $pid];
                 $stmt = db_exec($sql, $params);
@@ -152,9 +234,7 @@
                         $params = [":idEq" => $_GET["tid"]];
                         $teamLeader = db_one($sql, $params);
                         if (!$teamLeader) {
-                            http_response_code(500);
-                            header("Location: dashboard.php");
-                            exit;
+                            $teamLeader = $user;
                         }
 
                         $sql = "SELECT * FROM zone ORDER BY id_zone ASC";
@@ -191,12 +271,19 @@
                             <label for="fteamZone">Zone d'affectation</label>
                             <select name="fteamZone">
                                 <?php
+                                    $asZone = false;
                                     foreach ($zones as $zone) {
                                         echo "<option value='".$zone["ID_ZONE"]."'";
                                         if ($zone["ID_ZONE"] == $selectedTeam["ZONE_EQUIPE"]) {
                                             echo " selected = 'selected'";
+                                            $asZone = true;
                                         }
                                         echo ">".$zone["ID_ZONE"]."</option>";
+                                    }
+                                    if ($asZone) {
+                                        echo "<option value='NULL'>-</option>";
+                                    } else {
+                                        echo "<option value='NULL' selected='selected'>-</option>";
                                     }
                                 ?>
                             </select>
@@ -222,12 +309,16 @@
                                 }
                             ?>
                         </table>
+                        <form action="?modify=deleteTeam" method='POST'>
+                            <input type='hidden' name='ftid' value='<?= $_GET["tid"] ?>'></input>
+                            <button class='red'>Supprimer l'Équipe</button>
+                        </form>
                     </div>
                 <!-- affichage principal -->
                 <?php else: ?>
 
                     <?php
-                        $sql = "SELECT id_equipe, zone_equipe, id_personnel, nom_personnel, prenom_personnel FROM equipe INNER JOIN personnel ON id_chef_equipe = id_personnel ORDER BY id_equipe ASC";
+                        $sql = "SELECT id_equipe, zone_equipe, id_personnel, nom_personnel, prenom_personnel FROM equipe OUTER JOIN personnel ON id_chef_equipe = id_personnel ORDER BY id_equipe ASC";
                         $params = [];
                         $teams = db_all($sql, $params);
 
@@ -238,6 +329,7 @@
 
                     <section id="teams">
                         <h1>Mes Équipes</h1>
+                        <form action='?modify=addTeam' method='POST'><button type='submit'>Nouvelle Équipe</button></form>
                         <table>
                             <tr>
                                 <th>ID</th>
@@ -279,7 +371,7 @@
                                     if ($stmt) {
                                         echo "<td>De cette zone dépendent des entités</td>";
                                     } else {
-                                        echo "<td><form action='?modify=deletezone' method='POST'><input type='hidden' name='fzoneID' value='".$zone["ID_ZONE"]."'></input><button type='submit'>🗑️</button></form></td>";
+                                        echo "<td><form action='?modify=deletezone' method='POST'><input type='hidden' name='fzoneID' value='".$zone["ID_ZONE"]."'></input><button class='red' type='submit'>🗑️</button></form></td>";
                                     }
 
                                     echo "</tr>";

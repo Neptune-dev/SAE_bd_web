@@ -5,6 +5,8 @@
   --btn-hover: #45a049;
   --btn-secondary: #4c5eaf;
   --btn-secondary-hover: #555e88; 
+  --btn-red: #af604c;
+  --btn-red-hover: #c74626;
 }
 
 body {
@@ -95,6 +97,16 @@ button.secondary {
 button.secondary:hover {
     background-color: var(--btn-secondary-hover);
     border-color: var(--btn-secondary-hover);
+}
+
+button.red {
+    background-color: var(--btn-red);
+    border-color: var(--btn-red);
+}
+
+button.red:hover {
+    background-color: var(--btn-red-hover);
+    border-color: var(--btn-red-hover);
 }
 
 table, th, td {

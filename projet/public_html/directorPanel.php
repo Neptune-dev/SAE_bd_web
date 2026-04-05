@@ -89,6 +89,26 @@
 
                 header("Location: directorPanel.php#zones");
                 exit();
+            } elseif ($_GET["modify"] == 'worker') {
+
+                $pid = $_POST["fpid"];
+                $team = $_POST["fteam"];
+                $name = $_POST["fname"];
+                $surname = $_POST["fsurname"];
+                $type = $_POST["ftype"];
+                $salary = $_POST["fsalary"];
+
+                $sql = "UPDATE personnel SET id_equipe_personnel=:team, nom_personnel=:name, prenom_personnel=:surname, type_personnel=:type, salaire_personnel=:salary WHERE id_personnel=:pid";
+                $params = [":team" => $team, ":name" => $name, ":surname" => $surname, ":type" => $type, ":salary" => $salary, ":pid" => $pid];
+                $stmt = db_exec($sql, $params);
+                if (!$stmt) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
+                header("Location: directorPanel.php#workers");
+                exit();
             }
         }
     }
@@ -106,7 +126,7 @@
             flex-direction: column;
         }
 
-        @media (min-width: 1700px) {
+        @media (min-width: 2050px) {
             #content {
                 flex-direction: row;
             }
@@ -259,7 +279,7 @@
                                     if ($stmt) {
                                         echo "<td>De cette zone dépendent des entités</td>";
                                     } else {
-                                        echo "<td><form action='?modify=deletezone' method='POST'><input type='hidden' name='fzoneID' value='".$zone["ID_ZONE"]."'><button type='submit'>🗑️</button></form></td>";
+                                        echo "<td><form action='?modify=deletezone' method='POST'><input type='hidden' name='fzoneID' value='".$zone["ID_ZONE"]."'></input><button type='submit'>🗑️</button></form></td>";
                                     }
 
                                     echo "</tr>";
@@ -277,9 +297,21 @@
                 <?php if(!isset($_GET["tid"])): ?>
 
                     <?php
-                        $sql = "SELECT id_personnel, id_equipe_personnel, nom_personnel, prenom_personnel, libelle_personnel, salaire_personnel FROM personnel OUTER JOIN type_personnel ON type_personnel = id_type ORDER BY nom_personnel ASC";
+                        $sql = "SELECT * FROM personnel OUTER JOIN type_personnel ON type_personnel = id_type ORDER BY nom_personnel ASC";
                         $params = [];
                         $personnels = db_all($sql, $params);
+
+                        $sql = "SELECT * FROM type_personnel ORDER BY id_type ASC";
+                        $params = [];
+                        $types = db_all($sql, $params);
+
+                        $sql = "SELECT * FROM equipe ORDER BY id_equipe ASC";
+                        $params = [];
+                        $teams = db_all($sql, $params);
+
+                        $sql = "SELECT id_personnel FROM personnel INNER JOIN equipe ON id_personnel = id_chef_equipe ORDER BY id_personnel ASC";
+                        $params = [];
+                        $chefs = db_all($sql, $params);
                     ?>
 
                     <section id="workers">
@@ -296,16 +328,74 @@
                                 <th>Modifier</th>
                             </tr>
                             <?php
+                                if (isset($_GET["pid"])) {
+                                    $pid = $_GET["pid"];
+                                } else {
+                                    $pid = "";
+                                }
                                 foreach ($personnels as $personnel) {
-                                    echo "<tr>"
-                                            ."<td>".$personnel["ID_PERSONNEL"]."</td>"
-                                            ."<td><a href='?tid=".$personnel["ID_EQUIPE_PERSONNEL"]."'>".$personnel["ID_EQUIPE_PERSONNEL"]."</a></td>"
-                                            ."<td>".$personnel["NOM_PERSONNEL"]."</td>"
-                                            ."<td>".$personnel["PRENOM_PERSONNEL"]."</td>"
-                                            ."<td>".$personnel["LIBELLE_PERSONNEL"]."</td>"
-                                            ."<td class='salary blurry'>".$personnel["SALAIRE_PERSONNEL"]."</td>"
-                                            ."<td><a href=''><button>✏️</button></a></td>"
-                                            ."</tr>";
+                                    if ($personnel["ID_PERSONNEL"] == $pid) {
+                                        echo "<tr><form action='?modify=worker' method='POST'>"
+                                            ."<input type='hidden' name='fpid' value='".$pid."'></input>"
+                                            ."<td>".$personnel["ID_PERSONNEL"]."</td>";
+                                        
+                                        // selection d'équipe
+                                        $isChef = false;
+                                        foreach ($chefs as $chef) {
+                                            if ($chef["ID_PERSONNEL"] == $personnel["ID_PERSONNEL"]) {
+                                                $isChef = true;
+                                            }
+                                        }
+                                        if ($isChef) {
+                                            echo "<td>Chef de l'Équipe <a href='?tid=".$personnel["ID_EQUIPE_PERSONNEL"]."'>".$personnel["ID_EQUIPE_PERSONNEL"]."</a></td>";
+                                        } else {
+                                            $asTeam = false;
+                                            echo "<td><select name='fteam'>";
+                                            foreach ($teams as $team) {
+                                                echo "<option value='".$team["ID_EQUIPE"]."'";
+                                                if ($personnel["ID_EQUIPE_PERSONNEL"] == $team["ID_EQUIPE"]) {
+                                                    echo " selected='selected'";
+                                                    $asTeam = true;
+                                                }
+                                                echo ">".$team["ID_EQUIPE"]."</option>";
+                                            }
+
+                                            if ($asTeam) {
+                                                echo "<option value='NULL'>-</option>";
+                                            } else {
+                                                echo "<option value='NULL' selected='selected'>-</option>";
+                                            }
+                                            echo "</select></td>";
+                                        }
+                                                
+                                        echo "<td><input type='text' name='fname' value=".$personnel["NOM_PERSONNEL"]." required></input></td>"
+                                            ."<td><input type='text' name='fsurname' value=".$personnel["PRENOM_PERSONNEL"]." required></input></td>";
+                                        
+                                        // selection du type
+                                        echo "<td><select name='ftype'>";
+                                        foreach ($types as $type) {
+                                            echo "<option value='".$type["ID_TYPE"]."'";
+                                            if ($personnel["TYPE_PERSONNEL"] == $type["ID_TYPE"]) {
+                                                echo " selected='selected'";
+                                            }
+                                            echo ">".$type["LIBELLE_PERSONNEL"]."</option>";
+                                        }
+                                        echo "</select></td>";
+
+                                        echo "<td><input type='number' name='fsalary' value=".$personnel["SALAIRE_PERSONNEL"]." required></input></td>"
+                                            ."<td><button class='secondary' type='submit'>✅</button></td>"
+                                            ."</form></tr>";
+                                    } else {
+                                        echo "<tr>"
+                                                ."<td>".$personnel["ID_PERSONNEL"]."</td>"
+                                                ."<td><a href='?tid=".$personnel["ID_EQUIPE_PERSONNEL"]."'>".$personnel["ID_EQUIPE_PERSONNEL"]."</a></td>"
+                                                ."<td>".$personnel["NOM_PERSONNEL"]."</td>"
+                                                ."<td>".$personnel["PRENOM_PERSONNEL"]."</td>"
+                                                ."<td>".$personnel["LIBELLE_PERSONNEL"]."</td>"
+                                                ."<td class='salary blurry'>".$personnel["SALAIRE_PERSONNEL"]."</td>"
+                                                ."<td><a href='?pid=".$personnel["ID_PERSONNEL"]."#workers'><button>✏️</button></a></td>"
+                                                ."</tr>";
+                                    }
                                 }
                             ?>
                         </table>

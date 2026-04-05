@@ -6,6 +6,8 @@
     --btn-bg-hover: #555555;
     --active-bg: #4CAF50;
     --active: white;
+    --sub-gb: #bdbdbd;
+    --sub-color: white;
     --logout: #af604c;
     --logout-hover: #c74626;
 }
@@ -39,6 +41,16 @@ li a.active {
     color: var(--active);
 }
 
+li a.sub {
+    background-color: var(--sub-gb);
+    color: var(--nav-color);
+}
+
+li a.sub:hover {
+    background-color: var(--btn-bg-hover);
+    color: var(--nav-color-hover);
+}
+
 #logoutbtn {
     background-color: var(--logout);
     color: var(--active);
@@ -46,4 +58,8 @@ li a.active {
 
 #logoutbtn:hover {
     background-color: var(--logout-hover);
+}
+
+.submenu {
+    display: none;
 }

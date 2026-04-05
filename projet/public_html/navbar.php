@@ -38,6 +38,17 @@
                 <li>
                     <a id="navDirector" href="directorPanel.php">Gestion</a>
                 </li>
+                <div class="submenu" id="navDirectorSubmenu">
+                    <li>
+                        <a id="navDirector" class="sub" href="directorPanel.php#teams">Équipes</a>
+                    </li>
+                    <li>
+                        <a id="navDirector" class="sub" href="directorPanel.php#zones">Zones</a>
+                    </li>
+                    <li>
+                        <a id="navDirector" class="sub" href="directorPanel.php#workers">Personnels</a>
+                    </li>
+                </div>
             <?php endif; ?>
 
             <li>

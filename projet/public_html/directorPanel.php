@@ -21,8 +21,8 @@
     $user = $_SESSION["user"];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_GET["modifyTeam"]) && isset($_GET["tid"])) {
-            if ($_GET["modifyTeam"] == true) {
+        if (isset($_GET["modify"])) {
+            if ($_GET["modify"] == 'team' && isset($_GET["tid"])) {
                 $tid = $_GET["tid"];
                 $newTeamLeader = $_POST["fteamLeader"];
                 $newTeamZone = $_POST["fteamZone"];
@@ -35,7 +35,59 @@
                     header("Location: dashboard.php");
                     exit();
                 }
-                header("Location: directorPanel.php");
+                header("Location: directorPanel.php#teams");
+                exit();
+            } elseif ($_GET["modify"] == 'deletezone') {
+                $zoneID = $_POST["fzoneID"];
+
+                $sql = "DELETE FROM zone WHERE id_zone=:zid";
+                $params = [":zid" => $zoneID];
+                $stmt = db_exec($sql, $params);
+                if (!$stmt) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+                header("Location: directorPanel.php#zones");
+                exit();
+            } elseif ($_GET["modify"] == 'addzone') {
+
+                //selection du nouvel id
+                $sql = "SELECT Max(id_zone) as max FROM zone";
+                $params = [];
+                $maxID = db_one($sql, $params);
+                if (!$maxID) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
+                if (!preg_match('/^([A-Za-z_]+)(\d+)$/', $maxID["MAX"], $m)) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
+                $prefix = $m[1];
+                $number = $m[2];
+
+                // Incrémente le nombre en conservant le remplissage par zéros (longueur d'origine)
+                $length = strlen($number);
+                $newNumber = str_pad((string) (intval($number) + 1), $length, '0', STR_PAD_LEFT);
+
+                $newID = $prefix . $newNumber;
+
+                //insertion
+                $sql = "INSERT INTO zone(id_zone) VALUES(:newID)";
+                $params = [":newID" => $newID];
+                $stmt = db_exec($sql, $params);
+                if (!$stmt) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+
+                header("Location: directorPanel.php#zones");
                 exit();
             }
         }
@@ -103,7 +155,7 @@
                         <h1>Équipe <?= $_GET["tid"] ?></h1>
                     </div>
                     <div id="teamLeaderPanel">
-                        <form action="?modifyTeam=true&tid=<?= $_GET["tid"] ?>" method="POST">
+                        <form action="?modify=team&tid=<?= $_GET["tid"] ?>" method="POST">
                             <label for="fteamLeader">Chef d'Équipe</label>
                             <select name="fteamLeader">
                                 <?php
@@ -158,31 +210,67 @@
                         $sql = "SELECT id_equipe, zone_equipe, id_personnel, nom_personnel, prenom_personnel FROM equipe INNER JOIN personnel ON id_chef_equipe = id_personnel ORDER BY id_equipe ASC";
                         $params = [];
                         $teams = db_all($sql, $params);
+
+                        $sql = "SELECT * FROM zone ORDER BY id_zone ASC";
+                        $params = [];
+                        $zones = db_all($sql, $params);
                     ?>
 
-                    <h1>Mes Équipes</h1>
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Zone</th>
-                            <th>Chef</th>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Modifier</th>
-                        </tr>
-                        <?php
-                            foreach ($teams as $team) {
-                                echo "<tr>"
-                                        ."<td>".$team["ID_EQUIPE"]."</td>"
-                                        ."<td>".$team["ZONE_EQUIPE"]."</td>"
-                                        ."<td>".$team["ID_PERSONNEL"]."</td>"
-                                        ."<td>".strtoupper($team["NOM_PERSONNEL"])."</td>"
-                                        ."<td>".$team["PRENOM_PERSONNEL"]."</td>"
-                                        ."<td><a href='?tid=".$team["ID_EQUIPE"]."'><button>✏️</button></a></td>"
-                                        ."</tr>";
-                            }
-                        ?>
-                    </table>
+                    <section id="teams">
+                        <h1>Mes Équipes</h1>
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Zone</th>
+                                <th>Chef</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Modifier</th>
+                            </tr>
+                            <?php
+                                foreach ($teams as $team) {
+                                    echo "<tr>"
+                                            ."<td>".$team["ID_EQUIPE"]."</td>"
+                                            ."<td>".$team["ZONE_EQUIPE"]."</td>"
+                                            ."<td>".$team["ID_PERSONNEL"]."</td>"
+                                            ."<td>".strtoupper($team["NOM_PERSONNEL"])."</td>"
+                                            ."<td>".$team["PRENOM_PERSONNEL"]."</td>"
+                                            ."<td><a href='?tid=".$team["ID_EQUIPE"]."'><button>✏️</button></a></td>"
+                                            ."</tr>";
+                                }
+                            ?>
+                        </table>
+                    </section>
+                    <section id="zones">
+                        <h1>Les Zones</h1>
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Modification</th>
+                            </tr>
+                            <?php
+                                foreach ($zones as $zone) {
+                                    echo "<tr><td>".$zone["ID_ZONE"]."</td>";
+
+                                    $sql = "SELECT zone_enclos FROM enclos WHERE zone_enclos=:zoneID UNION SELECT id_zone_boutique FROM boutique WHERE id_zone_boutique=:zoneID UNION SELECT zone_equipe FROM equipe WHERE zone_equipe=:zoneID";
+                                    $params = [":zoneID" => $zone["ID_ZONE"]];
+                                    $stmt = db_one($sql, $params);
+
+                                    if ($stmt) {
+                                        echo "<td>De cette zone dépendent des entités</td>";
+                                    } else {
+                                        echo "<td><form action='?modify=deletezone' method='POST'><input type='hidden' name='fzoneID' value='".$zone["ID_ZONE"]."'><button type='submit'>🗑️</button></form></td>";
+                                    }
+
+                                    echo "</tr>";
+                                }
+                            ?>
+                            <tr>
+                                <td><b>Ajouter une zone</b></td>
+                                <td><form action='?modify=addzone' method='POST'><button class='secondary' type='submit'>+</button></form></td>
+                            </tr>
+                        </table>
+                    </section>
                 <?php endif; ?>
             </div>
             <div class="panel">
@@ -194,32 +282,34 @@
                         $personnels = db_all($sql, $params);
                     ?>
 
-                    <h1>Les Personnels</h1>
-                    <button id="blurSalaryBtn">Afficher les salaires</button>
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Équipe</th>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Fonction</th>
-                            <th>Salaire (€)</th>
-                            <th>Modifier</th>
-                        </tr>
-                        <?php
-                            foreach ($personnels as $personnel) {
-                                echo "<tr>"
-                                        ."<td>".$personnel["ID_PERSONNEL"]."</td>"
-                                        ."<td><a href='?tid=".$personnel["ID_EQUIPE_PERSONNEL"]."'>".$personnel["ID_EQUIPE_PERSONNEL"]."</a></td>"
-                                        ."<td>".$personnel["NOM_PERSONNEL"]."</td>"
-                                        ."<td>".$personnel["PRENOM_PERSONNEL"]."</td>"
-                                        ."<td>".$personnel["LIBELLE_PERSONNEL"]."</td>"
-                                        ."<td class='salary blurry'>".$personnel["SALAIRE_PERSONNEL"]."</td>"
-                                        ."<td><a href=''><button>✏️</button></a></td>"
-                                        ."</tr>";
-                            }
-                        ?>
-                    </table>
+                    <section id="workers">
+                        <h1>Les Personnels</h1>
+                        <button id="blurSalaryBtn">Afficher les salaires</button>
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Équipe</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Fonction</th>
+                                <th>Salaire (€)</th>
+                                <th>Modifier</th>
+                            </tr>
+                            <?php
+                                foreach ($personnels as $personnel) {
+                                    echo "<tr>"
+                                            ."<td>".$personnel["ID_PERSONNEL"]."</td>"
+                                            ."<td><a href='?tid=".$personnel["ID_EQUIPE_PERSONNEL"]."'>".$personnel["ID_EQUIPE_PERSONNEL"]."</a></td>"
+                                            ."<td>".$personnel["NOM_PERSONNEL"]."</td>"
+                                            ."<td>".$personnel["PRENOM_PERSONNEL"]."</td>"
+                                            ."<td>".$personnel["LIBELLE_PERSONNEL"]."</td>"
+                                            ."<td class='salary blurry'>".$personnel["SALAIRE_PERSONNEL"]."</td>"
+                                            ."<td><a href=''><button>✏️</button></a></td>"
+                                            ."</tr>";
+                                }
+                            ?>
+                        </table>
+                    </section>
                 <?php endif; ?>
             </div>
         </div>
@@ -228,6 +318,8 @@
     <script>
         let active = document.getElementById("navDirector");
         active.classList.toggle('active');
+        let submenu = document.getElementById("navDirectorSubmenu");
+        submenu.classList.toggle('submenu');
     </script>
 
     <script>

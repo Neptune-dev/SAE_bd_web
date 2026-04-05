@@ -6,6 +6,8 @@
     --btn-bg-hover: #555555;
     --active-bg: #4CAF50;
     --active: white;
+    --logout: #af604c;
+    --logout-hover: #c74626;
 }
 
 ul {
@@ -35,4 +37,13 @@ li a:hover {
 li a.active {
     background-color: var(--active-bg);
     color: var(--active);
+}
+
+#logoutbtn {
+    background-color: var(--logout);
+    color: var(--active);
+}
+
+#logoutbtn:hover {
+    background-color: var(--logout-hover);
 }

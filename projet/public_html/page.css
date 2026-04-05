@@ -73,10 +73,6 @@ button:hover {
     border-color: var(--btn-hover);
 }
 
-button.selected {
-    border-color: #f4f4f9;
-}
-
 table, th, td {
     padding: 15px;
     border: 1px solid var(--bg);
@@ -93,16 +89,6 @@ table, th, td {
 #admButton:hover {
     background-color: #555e88;
     border-color: #555e88;
-}
-
-#logoutBtn {
-    background-color: #af604c;
-    border-color: #af604c;
-}
-
-#logoutBtn:hover {
-    background-color: #c74626;
-    border-color: #c74626;
 }
 
 @media (max-width: 600px) {

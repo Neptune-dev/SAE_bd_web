@@ -66,7 +66,7 @@
                 <a href="parrainagePanel.php">Parrainage</a>
             </li>
             <li>
-                <a href="logout.php">Se déconnecter</a>
+                <a id="logoutbtn" href="logout.php">Se déconnecter</a>
             </li>
         </ul>
     </div>

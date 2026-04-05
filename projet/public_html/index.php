@@ -11,20 +11,18 @@
 <body>
     <header>
 
-        <h1>Coucou test 2</h1>
+        <h1>Zoo</h1>
+        <h2>ENT</h2>
 
         <?php
             if (isset($_SESSION["user"]))
             {
-                echo ('<a href="dashboard.php">Ma page</a><a href="logout.php">Se déconnecter</a>');
+                echo ('<a href="dashboard.php"><button>Ma page</button></a><a href="logout.php"><button>Se déconnecter</button></a>');
             } else
             {
-                echo ('<a href="login.php">Se connecter</a>');
+                echo ('<a href="login.php"><button>Se connecter</button></a>');
             }
         ?>
     </header>
-    <footer>
-        <span>Le footer</span>
-    </footer>
 </body>
 </html>

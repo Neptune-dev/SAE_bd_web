@@ -128,7 +128,7 @@
                                     }
                                 ?>
                             </select>
-                            <button type="submit">Mettre à jour</button>
+                            <button class="secondary" type="submit">Mettre à jour</button>
                         </form>
                     </div>
                     <div>
@@ -189,7 +189,7 @@
                 <?php if(!isset($_GET["tid"])): ?>
 
                     <?php
-                        $sql = "SELECT id_personnel, id_equipe_personnel, nom_personnel, prenom_personnel, libelle_personnel, salaire_personnel FROM personnel OUTER JOIN type_personnel ON type_personnel = id_type WHERE id_personnel != 'ADMIN000' ORDER BY nom_personnel ASC";
+                        $sql = "SELECT id_personnel, id_equipe_personnel, nom_personnel, prenom_personnel, libelle_personnel, salaire_personnel FROM personnel OUTER JOIN type_personnel ON type_personnel = id_type ORDER BY nom_personnel ASC";
                         $params = [];
                         $personnels = db_all($sql, $params);
                     ?>
@@ -210,7 +210,7 @@
                             foreach ($personnels as $personnel) {
                                 echo "<tr>"
                                         ."<td>".$personnel["ID_PERSONNEL"]."</td>"
-                                        ."<td>".$personnel["ID_EQUIPE_PERSONNEL"]."</td>"
+                                        ."<td><a href='?tid=".$personnel["ID_EQUIPE_PERSONNEL"]."'>".$personnel["ID_EQUIPE_PERSONNEL"]."</a></td>"
                                         ."<td>".$personnel["NOM_PERSONNEL"]."</td>"
                                         ."<td>".$personnel["PRENOM_PERSONNEL"]."</td>"
                                         ."<td>".$personnel["LIBELLE_PERSONNEL"]."</td>"

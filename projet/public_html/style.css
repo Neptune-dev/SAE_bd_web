@@ -9,6 +9,13 @@ body {
     height: 100vh;
 }
 
+h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
 h2 {
     font-size: 24px;
     margin-bottom: 20px;
@@ -47,6 +54,7 @@ input[type="password"] {
 button {
     width: 100%;
     padding: 14px;
+    margin: 14px;
     background-color: #4CAF50;
     color: white;
     border: none;

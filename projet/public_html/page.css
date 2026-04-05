@@ -43,6 +43,7 @@ body {
 .blurry {
     color: transparent;
     text-shadow: 0 0 8px #000;
+    user-select: none;
 }
 
 h1 {
@@ -84,6 +85,16 @@ button {
 button:hover {
     background-color: var(--btn-hover);
     border-color: var(--btn-hover);
+}
+
+button.secondary {
+    background-color: var(--btn-secondary);
+    border-color: var(--btn-secondary);
+}
+
+button.secondary:hover {
+    background-color: var(--btn-secondary-hover);
+    border-color: var(--btn-secondary-hover);
 }
 
 table, th, td {

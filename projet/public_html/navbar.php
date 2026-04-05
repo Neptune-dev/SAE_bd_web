@@ -62,7 +62,9 @@
                     <a id="navBoutique" href="boutiquePanel.php">Boutique</a>
                 </li>
             <?php endif; ?>
-        
+            <li>
+                <a href="parrainagePanel.php">Parrainage</a>
+            </li>
             <li>
                 <a href="logout.php">Se déconnecter</a>
             </li>

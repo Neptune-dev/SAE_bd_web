@@ -29,5 +29,6 @@ function gotChefPermission ($uType):bool {
     if (in_array($uType, array("CHEF")) || gotAdminPermission($uType)) {
         return true;
     }
+    return false;
 }
 ?>

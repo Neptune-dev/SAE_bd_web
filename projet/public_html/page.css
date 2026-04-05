@@ -3,6 +3,8 @@
   --titles: #f4f4f9;
   --btn-color: #4CAF50;
   --btn-hover: #45a049;
+  --btn-secondary: #4c5eaf;
+  --btn-secondary-hover: #555e88; 
 }
 
 body {
@@ -22,14 +24,25 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+
 }
 
 #sidebar {
     width: 200px;
+    height: 100%;
 }
 
 #content {
     margin: 20px;
+}
+
+.panel {
+    padding: 40px;
+}
+
+.blurry {
+    color: transparent;
+    text-shadow: 0 0 8px #000;
 }
 
 h1 {
@@ -79,16 +92,6 @@ table, th, td {
     border-collapse: collapse;
     background-color: var(--titles);
     color: var(--bg);
-}
-
-#admButton {
-    background-color: #4c5eaf;
-    border-color: #4c5eaf;
-}
-
-#admButton:hover {
-    background-color: #555e88;
-    border-color: #555e88;
 }
 
 @media (max-width: 600px) {

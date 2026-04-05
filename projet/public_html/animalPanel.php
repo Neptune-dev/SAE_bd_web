@@ -129,15 +129,16 @@
 
 
                         echo "<table><tr>"
-                        ."<th>ID</th>"
-                        ."<th>Nom</th>"
-                        ."<th>Prénom</th>"
-                        ."<th>Espèce</th>"
-                        ."<th>Dernier repas</th>"
-                        ."<th>Régime</th>"
-                        ."<th>Nourrire</th>"
-                        ."<th>Modifier</th>"
-                        ."</tr>";
+                            ."<th>ID</th>"
+                            ."<th>Nom</th>"
+                            ."<th>Prénom</th>"
+                            ."<th>Espèce</th>"
+                            ."<th>Dernier repas</th>"
+                            ."<th>Régime</th>"
+                            ."<th>Nourrire</th>"
+                            ."<th>Modifier</th>"
+                            ."</tr>";
+                            
                         foreach ($result as $tb){
 
                             $sql2="SELECT MAX(date_de_nour) AS DERNIERE_DATE FROM alimentation WHERE RFID_alimentation = :rfid";

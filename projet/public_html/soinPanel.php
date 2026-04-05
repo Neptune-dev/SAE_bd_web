@@ -48,10 +48,25 @@
                     }
 
                     $result=db_all($sql,$params);
+                    echo "<table><tr>"
+                        ."<th>ID</th>"
+                        ."<th>Nom</th>"
+                        ."<th>Prénom</th>"
+                        ."<th>Espèce</th>"
+                        ."<th>Historique</th>"
+                        ."<th>Soigner</th>"
+                        ."</tr>";
                     foreach ($result as $tb) {
-                        echo "<p><strong>{$tb['NOM_ANIMAL']} - {$tb['PRENOM_ANIMAL']}</strong> — {$tb['RFID_ANIMAL']} (Espèce : {$tb['NOM_USUEL']} - {$tb['NOM_LATIN']})</p>";
-                        echo "<form action='soigner_animal.php' method='POST'><input type='hidden' name='RFID' value='{$tb['RFID_ANIMAL']}'><button type='submit'>Soigner</button></form><a href='historique_soin.php?RFID={$tb['RFID_ANIMAL']}'>Historique des soins</a>";
+                        echo "<tr>"
+                            ."<td>{$tb['RFID_ANIMAL']}</td>"
+                            ."<td>{$tb['NOM_ANIMAL']}</td>"
+                            ."<td>{$tb['PRENOM_ANIMAL']}</td>"
+                            ."<td>{$tb['NOM_USUEL']} - {$tb['NOM_LATIN']}</td>"
+                            ."<td><a href='historique_soin.php?RFID={$tb['RFID_ANIMAL']}'>Historique des soins</a></td>"
+                            ."<td><form action='soigner_animal.php' method='POST'><input type='hidden' name='RFID' value='{$tb['RFID_ANIMAL']}'><button type='submit'>Soigner</button></form></td>"
+                            ."</tr>";
                     }
+                    echo "</table>";
                 }
             ?>
         </div>

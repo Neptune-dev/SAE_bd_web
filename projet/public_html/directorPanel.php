@@ -19,6 +19,27 @@
     }
 
     $user = $_SESSION["user"];
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_GET["modifyTeam"]) && isset($_GET["tid"])) {
+            if ($_GET["modifyTeam"] == true) {
+                $tid = $_GET["tid"];
+                $newTeamLeader = $_POST["fteamLeader"];
+                $newTeamZone = $_POST["fteamZone"];
+
+                $sql = "UPDATE equipe SET id_chef_equipe=:newTeamLeader, zone_equipe=:newTeamZone WHERE id_equipe=:tid";
+                $params = [":newTeamLeader" => $newTeamLeader, ":newTeamZone" => $newTeamZone, ":tid" => $tid];
+                $stmt = db_exec($sql, $params);
+                if (!$stmt) {
+                    http_response_code(500);
+                    header("Location: dashboard.php");
+                    exit();
+                }
+                header("Location: directorPanel.php");
+                exit();
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -34,10 +55,11 @@
             <?php require('navbar.php'); ?>
         </div>
         <div id="content">
+            <!-- affichage détaillé de l'équipe -->
             <?php if(isset($_GET["tid"])): ?>
 
                 <?php
-                    $sql = "SELECT * FROM personnel WHERE id_equipe_personnel = :idEq";
+                    $sql = "SELECT * FROM personnel WHERE id_equipe_personnel = :idEq ORDER BY nom_personnel ASC";
                     $params = [":idEq" => $_GET["tid"]];
                     $teamMembers = db_all($sql, $params);
 
@@ -49,15 +71,55 @@
                         header("Location: dashboard.php");
                         exit;
                     }
+
+                    $sql = "SELECT * FROM zone ORDER BY id_zone ASC";
+                    $params = [];
+                    $zones = db_all($sql, $params);
+
+                    $sql = "SELECT * FROM equipe WHERE id_equipe = :idEq";
+                    $params = [":idEq" => $_GET["tid"]];
+                    $selectedTeam = db_one($sql, $params);
+                    if (!$selectedTeam) {
+                        http_response_code(500);
+                        header("Location: dashboard.php");
+                        exit;
+                    }
                 ?>
                 <div>
                     <a href="directorPanel.php"><button>Retour</button></a>
-                </div>
-                <div>
                     <h1>Équipe <?= $_GET["tid"] ?></h1>
-                    <label>Chef d'Équipe : <?= $teamLeader["PRENOM_PERSONNEL"]." ".strtoupper($teamLeader["NOM_PERSONNEL"]) ?></label>
+                </div>
+                <div id="teamLeaderPanel">
+                    <form action="?modifyTeam=true&tid=<?= $_GET["tid"] ?>" method="POST">
+                        <label for="fteamLeader">Chef d'Équipe</label>
+                        <select name="fteamLeader">
+                            <?php
+                                foreach ($teamMembers as $tm) {
+                                    echo "<option value='".$tm["ID_PERSONNEL"]."'";
+                                    if ($tm["ID_PERSONNEL"] == $teamLeader["ID_PERSONNEL"]) {
+                                        echo " selected = 'selected'";
+                                    }
+                                    echo ">".$tm["PRENOM_PERSONNEL"]." ".strtoupper($tm["NOM_PERSONNEL"])."</option>";
+                                }
+                            ?>
+                        </select>
+                        <label for="fteamZone">Zone d'affectation</label>
+                        <select name="fteamZone">
+                            <?php
+                                foreach ($zones as $zone) {
+                                    echo "<option value='".$zone["ID_ZONE"]."'";
+                                    if ($zone["ID_ZONE"] == $selectedTeam["ZONE_EQUIPE"]) {
+                                        echo " selected = 'selected'";
+                                    }
+                                    echo ">".$zone["ID_ZONE"]."</option>";
+                                }
+                            ?>
+                        </select>
+                        <button type="submit">Mettre à jour</button>
+                    </form>
                 </div>
                 <div>
+                    <label>Membres de l'Équipe</label>
                     <table>
                         <tr>
                             <th>ID</th>
@@ -76,10 +138,11 @@
                         ?>
                     </table>
                 </div>
+            <!-- affichage principal -->
             <?php else: ?>
 
                 <?php
-                    $sql = "SELECT id_equipe, zone_equipe, id_personnel, nom_personnel, prenom_personnel FROM equipe INNER JOIN personnel ON id_chef_equipe = id_personnel";
+                    $sql = "SELECT id_equipe, zone_equipe, id_personnel, nom_personnel, prenom_personnel FROM equipe INNER JOIN personnel ON id_chef_equipe = id_personnel ORDER BY id_equipe ASC";
                     $params = [];
                     $teams = db_all($sql, $params);
                 ?>

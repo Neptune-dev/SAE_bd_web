@@ -51,6 +51,7 @@ label {
     /*color: #555;*/
     color: var(--titles);
     margin-bottom: 8px;
+    margin-top: 8px;
 }
 
 button {

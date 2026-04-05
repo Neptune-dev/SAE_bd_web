@@ -62,6 +62,9 @@
             <?php endif; ?>
             <?php if(gotAnimalPermission($userType)): ?>
                 <li>
+                    <a id="navEspece" href="especePanel.php">Espèces</a>
+                </li>
+                <li>
                     <a id="navAnimal" href="animalPanel.php">Animaux</a>
                 </li>
                 <li>

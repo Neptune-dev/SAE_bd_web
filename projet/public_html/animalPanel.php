@@ -108,10 +108,15 @@
                     <input type="text" name="motcle">
                     <button type="submit" name="cherche_animal">Rechercher</button>
                 </form>
+                <form action="" method="GET">
+                    <input type="hidden" name="motcle" value=''>
+                    <button type="submit" name="cherche_animal">Voir tous les animaux</button>
+                </form>
+                <h1>Résultats :</h1>
                 <?php
                     if (isset($_GET['cherche_animal'])){
                         $motcle = isset($_GET['motcle']) ? $_GET['motcle'] : '';
-                        $sql = "SELECT animal.RFID_animal, animal.nom_animal, animal.prenom_animal, espece.nom_latin, espece.nom_usuel FROM animal LEFT JOIN espece ON animal.espece_animal=espece.id_espece LEFT JOIN alimentation ON animal.RFID_animal=alimentation.RFID_alimentation WHERE 1";
+                        $sql = "SELECT animal.RFID_animal, animal.nom_animal, animal.prenom_animal, animal.regime_animal, espece.nom_latin, espece.nom_usuel FROM animal LEFT JOIN espece ON animal.espece_animal=espece.id_espece LEFT JOIN alimentation ON animal.RFID_animal=alimentation.RFID_alimentation WHERE 1";
                         
                         $params = [];
                         
@@ -121,21 +126,46 @@
                         }
 
                         $result=db_all($sql,$params);
+
+
+                        echo "<table><tr>"
+                        ."<th>ID</th>"
+                        ."<th>Nom</th>"
+                        ."<th>Prénom</th>"
+                        ."<th>Espèce</th>"
+                        ."<th>Dernier repas</th>"
+                        ."<th>Régime</th>"
+                        ."<th>Nourrire</th>"
+                        ."<th>Modifier</th>"
+                        ."</tr>";
                         foreach ($result as $tb){
-                            echo "<p><strong>{$tb['NOM_ANIMAL']} - {$tb['PRENOM_ANIMAL']}</strong> — {$tb['RFID_ANIMAL']} (Espèce : {$tb['NOM_USUEL']} - {$tb['NOM_LATIN']})</p>";
-                            echo "<div class='menu' style='align-items: left; justify-content: left; background-color: #f4f4f9;'><a href='supprimer_animal.php?RFID_animal={$tb['RFID_ANIMAL']}' style='text-decoration: none; color: black;'>Supprimer l'animal</a><BR><a href='modifier_animal.php?RFID_animal={$tb['RFID_ANIMAL']}' style='text-decoration: none; color: black;'>Modifier l'animal</a></div>";
+
                             $sql2="SELECT MAX(date_de_nour) AS DERNIERE_DATE FROM alimentation WHERE RFID_alimentation = :rfid";
                             $rfid=$tb['RFID_ANIMAL'];
-                            $params2=[
-                                ':rfid'=>$rfid
-                            ];
+                            $params2=[':rfid'=>$rfid];
                             $result2=db_one($sql2,$params2);
+
+                            $sql3 = "SELECT libelle_regime as regime FROM regime WHERE id_regime = :idr";
+                            $params3 = [":idr" => $tb['REGIME_ANIMAL']];
+                            $result3=db_one($sql3, $params3);
+
+                            echo "<tr>";
+                            echo "<td>{$tb['RFID_ANIMAL']}</td>";
+                            echo "<td>{$tb['NOM_ANIMAL']}</td>";
+                            echo "<td>{$tb['PRENOM_ANIMAL']}</td>";
+                            echo "<td>{$tb['NOM_USUEL']} - {$tb['NOM_LATIN']}</td>";
                             if ($result2) {
-                                echo "<p>",$result2['DERNIERE_DATE'],"</p>";
-                                echo "<form method='POST' action='nourrir_animal.php'><input type='hidden' name='RFID' value='{$tb['RFID_ANIMAL']}'><input type='text' name='quantite'><button type='submit'>Je l’ai nourri</button></form>";
-                                
+                                echo "<td>{$result2['DERNIERE_DATE']}</td>";
+                            } else {
+                                echo "<td></td>";
                             }
+                            echo "<td>{$result3['REGIME']}</td>";
+                            echo "<td><form method='POST' action='nourrir_animal.php'><input type='hidden' name='RFID' value='{$tb['RFID_ANIMAL']}'><p>Quantité</p><input type='number' name='quantite' required><button type='submit'>Je l’ai nourri</button></form></td>";
+                            echo "<td><a href='modifier_animal.php?RFID_animal={$tb['RFID_ANIMAL']}'><button>✏️</button></a></td>";
+                            //echo "<a href='supprimer_animal.php?RFID_animal={$tb['RFID_ANIMAL']}'><button>Supprimer l'animal</button></a>";                            
+                            echo "</tr>";
                         }
+                        echo "</table>";
                     }
                 ?>
             </div>
